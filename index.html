@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>goibibo — Travel made easy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#"><span>go</span>ibibo</a>
+      <nav><a href="#offers">Offers</a><a href="#trips" id="my-trips-link">My Trips</a><a href="#help">Help</a></nav>
+      <button class="login" id="auth-button" type="button">Login / Sign up</button>
+      <button class="logout hidden" id="logout-button" type="button">Logout</button>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="hero-flying-plane">✈</div>
+        <p class="eyebrow">PLAN LESS. EXPERIENCE MORE.</p>
+        <h1>Your next story<br />starts <em id="hero-dynamic-text">here.</em></h1>
+        <p class="hero-copy">From spontaneous escapes to perfectly planned holidays,<br />we make every journey feel effortless.</p>
+        <div class="hero-stats">
+          <span class="stat-badge"><b>40M+</b> happy travellers</span>
+          <span class="stat-badge"><b>150+</b> countries to explore</span>
+          <span class="stat-badge"><b>24/7</b> travel support</span>
+        </div>
+      </section>
+
+      <section class="search-wrap" aria-label="Travel search">
+        <div class="tabs">
+          <button class="tab active" data-panel="flights"><i>✈</i> Flights</button>
+          <button class="tab" data-panel="hotels"><i>⌂</i> Hotels</button>
+          <button class="tab" data-panel="trains"><i>▰</i> Trains</button>
+          <button class="tab" data-panel="buses"><i>▱</i> Buses</button>
+          <button class="tab" data-panel="holidays"><i>☀</i> Holidays</button>
+        </div>
+        <div class="trip-type">
+          <label><input type="radio" name="trip" checked /> Round trip</label>
+          <label><input type="radio" name="trip" /> One way</label>
+          <label><input type="radio" name="trip" /> Multi-city</label>
+        </div>
+        <form class="search-form">
+          <div class="field-wrap">
+            <label class="field city">
+              <small>FROM</small>
+              <input id="search-from" value="New Delhi" autocomplete="off" required />
+              <span>City or airport</span>
+            </label>
+            <div class="autocomplete-dropdown hidden" id="from-suggestions"></div>
+          </div>
+
+          <button class="swap" type="button" aria-label="Swap cities">⇄</button>
+
+          <div class="field-wrap">
+            <label class="field city">
+              <small>TO</small>
+              <input id="search-to" placeholder="Where to?" autocomplete="off" />
+              <span>City, airport or destination</span>
+            </label>
+            <div class="autocomplete-dropdown hidden" id="to-suggestions"></div>
+          </div>
+
+          <label class="field">
+            <small>DEPARTURE</small>
+            <input id="search-date" type="date" required />
+            <span>Choose a date</span>
+          </label>
+          <label class="field">
+            <small>RETURN</small>
+            <input id="return-date" type="date" />
+            <span>Optional</span>
+          </label>
+          <label class="field travellers">
+            <small>TRAVELLERS</small>
+            <select id="search-passengers">
+              <option value="1">1 Traveller</option>
+              <option value="2">2 Travellers</option>
+              <option value="3">3 Travellers</option>
+              <option value="4">4 Travellers</option>
+            </select>
+            <span>Economy</span>
+          </label>
+          <button class="search-btn" type="submit">Search flights <span>→</span></button>
+        </form>
+      </section>
+
+      <section class="content" id="offers">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow orange">CURATED FOR YOU</p>
+            <h2>Deals worth taking off for</h2>
+          </div>
+          <a href="#offers" id="view-offers">View all offers <span>→</span></a>
+        </div>
+        <div class="offer-grid">
+          <article class="offer coral">
+            <div class="offer-label">FLIGHTS</div>
+            <h3>Fly now, pay<br />later.</h3>
+            <p>Use code <b>GOFIRST</b> for ₹500 off<br />with easy EMI options.</p>
+            <button data-service="flights">Explore deal <span>→</span></button>
+            <div class="plane">✈</div>
+          </article>
+          <article class="offer violet">
+            <div class="offer-label">HOTELS</div>
+            <h3>Stay a little<br />longer.</h3>
+            <p>Use code <b>STAYMORE</b> for 35% off<br />on stays you'll love.</p>
+            <button data-service="hotels">Find a stay <span>→</span></button>
+            <div class="hotel-icon">⌂</div>
+          </article>
+          <article class="offer sand">
+            <div class="offer-label">WEEKEND ESCAPES</div>
+            <h3>Take the<br />scenic route.</h3>
+            <p>Use code <b>WELCOME500</b> for<br />handpicked getaways.</p>
+            <button data-service="holidays">Discover trips <span>→</span></button>
+            <div class="sun">☀</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="destinations" id="trips">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow orange">FEEL THE WORLD</p>
+            <h2>Popular right now</h2>
+          </div>
+          <div class="arrows">
+            <button type="button" data-destination-direction="previous">←</button>
+            <button type="button" data-destination-direction="next">→</button>
+          </div>
+        </div>
+        <div class="destination-grid">
+          <article class="destination beach" data-destination="Maldives">
+            <span class="pill">BEACHES</span>
+            <div>
+              <h3>Maldives</h3>
+              <p>From ₹42,999 / person</p>
+            </div>
+          </article>
+          <article class="destination cityscape" data-destination="Dubai">
+            <span class="pill">CITY BREAK</span>
+            <div>
+              <h3>Dubai</h3>
+              <p>From ₹28,499 / person</p>
+            </div>
+          </article>
+          <article class="destination mountain" data-destination="Manali">
+            <span class="pill">MOUNTAINS</span>
+            <div>
+              <h3>Manali</h3>
+              <p>From ₹9,999 / person</p>
+            </div>
+          </article>
+          <article class="destination ocean" data-destination="Bali">
+            <span class="pill">ISLANDS</span>
+            <div>
+              <h3>Bali</h3>
+              <p>From ₹32,999 / person</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="app-banner">
+        <div class="app-phone">
+          <div class="screen">
+            <span class="mini-brand"><b>go</b>ibibo</span>
+            <h4>Good morning,<br />Traveller!</h4>
+            <div class="mini-card">Your next escape<br /><b>starts today</b></div>
+            <div class="mini-nav">⌂　⌕　♡　☻</div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow orange">THE GOIBIBO APP</p>
+          <h2>Everything you need.<br />Right in your pocket.</h2>
+          <p>Plan, book and manage your trips on the go.<br />Plus, get app-only prices and early access to sales.</p>
+          <div class="store-buttons">
+            <button type="button" data-app-store="Apple App Store"> <span>Download on the<br /><b>App Store</b></span></button>
+            <button type="button" data-app-store="Google Play">▶ <span>GET IT ON<br /><b>Google Play</b></span></button>
+          </div>
+        </div>
+        <div class="dots">✦<br />·<br />✦</div>
+      </section>
+    </main>
+
+    <footer id="help">
+      <a class="brand" href="#"><span>go</span>ibibo</a>
+      <p>Made for the moments that matter.</p>
+      <div>© 2026 Goibibo Demo · Made with care</div>
+    </footer>
+
+    <!-- AUTH MODAL -->
+    <div class="modal" id="auth-modal" aria-hidden="true">
+      <div class="modal-card auth-card">
+        <button class="modal-close" data-close-modal="auth-modal" type="button">×</button>
+        <p class="eyebrow orange" id="auth-kicker">WELCOME BACK</p>
+        <h2 id="auth-title">Login to your account</h2>
+        <form id="auth-form">
+          <label id="name-field">Full name<input id="auth-name" type="text" placeholder="Your name" /></label>
+          <label>Email address<input id="auth-email" type="email" placeholder="you@example.com" required /></label>
+          <label>Password<input id="auth-password" type="password" placeholder="Minimum 6 characters" minlength="6" required /></label>
+          <button class="primary-button" id="auth-submit" type="submit">Login</button>
+        </form>
+        <button class="text-button" id="auth-switch" type="button">New here? Create an account</button>
+      </div>
+    </div>
+
+    <!-- RESULTS & FILTERING MODAL -->
+    <div class="modal" id="results-modal" aria-hidden="true">
+      <div class="modal-card results-card wide-modal">
+        <button class="modal-close" data-close-modal="results-modal" type="button">×</button>
+        <div class="results-header">
+          <div>
+            <p class="eyebrow orange">SEARCH RESULTS</p>
+            <h2 id="results-title">Available options</h2>
+          </div>
+          <div class="sort-wrap">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select">
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating-desc">Highest Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-layout">
+          <aside class="filter-sidebar" id="filter-sidebar">
+            <h3>Filters</h3>
+            
+            <div class="filter-group">
+              <label>Max Price: <b id="price-limit-val">₹15,000</b></label>
+              <input type="range" id="price-filter" min="500" max="50000" step="500" value="50000" />
+            </div>
+
+            <div class="filter-group" id="stops-filter-group">
+              <label>Stops</label>
+              <label class="checkbox-label"><input type="checkbox" value="0" class="stop-filter" checked /> Non-stop</label>
+              <label class="checkbox-label"><input type="checkbox" value="1" class="stop-filter" checked /> 1 Stop</label>
+            </div>
+
+            <div class="filter-group">
+              <label>Departure Time</label>
+              <select id="time-filter">
+                <option value="all">Any Time</option>
+                <option value="morning">Morning (6 AM - 12 PM)</option>
+                <option value="afternoon">Afternoon (12 PM - 6 PM)</option>
+                <option value="evening">Evening (6 PM - 12 AM)</option>
+                <option value="night">Night (12 AM - 6 AM)</option>
+              </select>
+            </div>
+
+            <button type="button" class="reset-filter-btn" id="reset-filters">Reset Filters</button>
+          </aside>
+
+          <div class="results-list-wrap">
+            <div id="results-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEAT / ROOM SELECTION MODAL -->
+    <div class="modal" id="seat-modal" aria-hidden="true">
+      <div class="modal-card seat-card">
+        <button class="modal-close" data-close-modal="seat-modal" type="button">×</button>
+        <p class="eyebrow orange">SELECT YOUR SEAT</p>
+        <h2 id="seat-modal-title">Choose your preferred seat</h2>
+        <p class="seat-subtitle">Click on available seat(s) to select</p>
+        
+        <div class="seat-legend">
+          <span class="legend-item"><i class="seat-sample available"></i> Available</span>
+          <span class="legend-item"><i class="seat-sample selected"></i> Selected</span>
+          <span class="legend-item"><i class="seat-sample booked"></i> Booked</span>
+        </div>
+
+        <div class="seat-grid-container" id="seat-grid-container">
+          <!-- Dynamically generated seat layout -->
+        </div>
+
+        <div class="seat-footer">
+          <div>Selected Seats: <strong id="selected-seats-display">None</strong></div>
+          <button class="primary-button" id="confirm-seats-btn" type="button">Proceed to Details →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOOKING DETAILS & PAYMENT CHECKOUT MODAL -->
+    <div class="modal" id="booking-modal" aria-hidden="true">
+      <div class="modal-card booking-card">
+        <button class="modal-close" data-close-modal="booking-modal" type="button">×</button>
+        <p class="eyebrow orange">CHECKOUT & PAYMENT</p>
+        <h2>Passenger & Payment Details</h2>
+        <p id="selected-flight-label"></p>
+
+        <form id="booking-form">
+          <div class="checkout-grid">
+            <div class="checkout-left">
+              <h3>1. Traveller Details</h3>
+              <label>Full name<input id="traveller-name" type="text" placeholder="As per Govt ID" required /></label>
+              <label>Travel date<input id="departure-date" type="date" required /></label>
+              <label>Passengers<input id="passenger-count" type="number" value="1" min="1" max="9" required /></label>
+
+              <h3>2. Select Payment Method</h3>
+              <div class="payment-methods">
+                <label class="pay-option"><input type="radio" name="payment-method" value="UPI" checked /> <span>GPay / PhonePe / BHIM UPI</span></label>
+                <label class="pay-option"><input type="radio" name="payment-method" value="CARD" /> <span>Credit / Debit Card</span></label>
+                <label class="pay-option"><input type="radio" name="payment-method" value="NETBANKING" /> <span>NetBanking</span></label>
+              </div>
+
+              <div class="pay-details-box" id="upi-box">
+                <div class="qr-placeholder">
+                  <div class="fake-qr">📱 SCAN & PAY</div>
+                  <p>Scan with any UPI App or click "Pay Now" for instant demo payment authorization.</p>
+                </div>
+              </div>
+
+              <div class="pay-details-box hidden" id="card-box">
+                <label>Card Number<input type="text" placeholder="4532 •••• •••• 8921" maxlength="19" /></label>
+                <div class="card-inline">
+                  <label>Expiry<input type="text" placeholder="MM/YY" maxlength="5" /></label>
+                  <label>CVV<input type="password" placeholder="123" maxlength="3" /></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="checkout-right">
+              <h3>Price Breakdown</h3>
+              <div class="price-summary-box">
+                <div class="summary-row"><span>Base Fare</span> <strong id="summary-base">₹0</strong></div>
+                <div class="summary-row"><span>Taxes & GST (18%)</span> <strong id="summary-tax">₹0</strong></div>
+                <div class="summary-row"><span>Convenience Fee</span> <strong>₹150</strong></div>
+                <div class="summary-row green hidden" id="summary-discount-row"><span>Promo Discount</span> <strong id="summary-discount">-₹0</strong></div>
+                <hr />
+                <div class="summary-row total"><span>Total Payable</span> <strong id="summary-total">₹0</strong></div>
+
+                <div class="coupon-section">
+                  <label>Apply Coupon Code</label>
+                  <div class="coupon-input-group">
+                    <input type="text" id="coupon-code-input" placeholder="e.g. GOFIRST" />
+                    <button type="button" id="apply-coupon-btn">Apply</button>
+                  </div>
+                  <small id="coupon-status-msg"></small>
+                </div>
+              </div>
+
+              <button class="primary-button pay-now-btn" id="pay-submit-btn" type="submit">Pay & Confirm Booking 🔒</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- PRINTABLE E-TICKET MODAL -->
+    <div class="modal" id="ticket-modal" aria-hidden="true">
+      <div class="modal-card ticket-card">
+        <button class="modal-close" data-close-modal="ticket-modal" type="button">×</button>
+        
+        <div class="ticket-wrapper" id="ticket-printable-area">
+          <div class="ticket-header">
+            <div class="ticket-brand"><span>go</span>ibibo</div>
+            <div class="ticket-status-badge">CONFIRMED E-TICKET</div>
+          </div>
+
+          <div class="ticket-pnr-bar">
+            <div>PNR: <b id="ticket-pnr">GBB9X82F</b></div>
+            <div>Booking Ref: <b id="ticket-id">BK-9182</b></div>
+            <div>Status: <span class="green-text">CONFIRMED</span></div>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-route">
+              <div class="city-box">
+                <h2 id="ticket-from-code">DEL</h2>
+                <p id="ticket-from-name">New Delhi</p>
+                <span id="ticket-dept-time">06:15</span>
+              </div>
+              <div class="flight-path">
+                <span id="ticket-duration">2h 05m</span>
+                <div class="line">✈</div>
+                <span id="ticket-service-type">Non-stop</span>
+              </div>
+              <div class="city-box text-right">
+                <h2 id="ticket-to-code">BOM</h2>
+                <p id="ticket-to-name">Mumbai</p>
+                <span id="ticket-arr-time">08:20</span>
+              </div>
+            </div>
+
+            <div class="ticket-details-grid">
+              <div><small>PASSENGER NAME</small><p id="ticket-passenger">John Doe</p></div>
+              <div><small>TRAVEL DATE</small><p id="ticket-date">2026-08-10</p></div>
+              <div><small>CARRIER / OPERATOR</small><p id="ticket-carrier">IndiGo 6E 2134</p></div>
+              <div><small>SEAT NUMBER(S)</small><p id="ticket-seats">12A, 12B</p></div>
+              <div><small>TOTAL PAID</small><p id="ticket-amount">₹5,730</p></div>
+              <div><small>PAYMENT METHOD</small><p id="ticket-paymethod">UPI (Google Pay)</p></div>
+            </div>
+
+            <div class="barcode-box">
+              <div class="fake-barcode">||||| ||||||| ||| |||||| |||||||| ||||| ||||||</div>
+              <small>Scan QR or present PNR at airport/terminal counter</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="ticket-actions">
+          <button class="primary-button" id="print-ticket-btn" type="button">🖨️ Print Ticket / Save PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
