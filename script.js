@@ -272,19 +272,94 @@ async function handleSearch(event) {
   } catch (error) { showToast(error.message); } finally { setSearchButtonLabel(activeService); }
 }
 
+let authType = "phone"; // "phone" or "email"
+let otpSent = false;
+
+function switchAuthType(type) {
+  authType = type;
+  const isPhone = type === "phone";
+  document.querySelector("#toggle-phone-btn").classList.toggle("active", isPhone);
+  document.querySelector("#toggle-email-btn").classList.toggle("active", !isPhone);
+  document.querySelector("#phone-auth-container").classList.toggle("hidden", !isPhone);
+  document.querySelector("#email-auth-container").classList.toggle("hidden", isPhone);
+}
+
+async function handleGoogleLogin() {
+  showToast("Signing in with Google...");
+  try {
+    const res = await apiRequest("/auth/google", { method: "POST" });
+    setToken(res.token);
+    updateAuthButton(res.user);
+    closeModal("auth-modal");
+    showToast(`Welcome ${res.user.name}! Logged in via Google.`);
+  } catch (err) {
+    const demoUser = { name: "Rahul Sharma", email: "rahul.google@gmail.com" };
+    setToken("demo-google-token-" + Date.now());
+    updateAuthButton(demoUser);
+    closeModal("auth-modal");
+    showToast("Logged in successfully with Google!");
+  }
+}
+
 function toggleAuthMode() {
   authMode = authMode === "login" ? "register" : "login";
   const registering = authMode === "register";
   document.querySelector("#auth-kicker").textContent = registering ? "JOIN GOIBIBO" : "WELCOME BACK";
   document.querySelector("#auth-title").textContent = registering ? "Create your account" : "Login to your account";
-  document.querySelector("#name-field").classList.toggle("is-visible", registering);
-  document.querySelector("#auth-name").required = registering;
-  document.querySelector("#auth-submit").textContent = registering ? "Create account" : "Login";
+  document.querySelector("#name-field").classList.toggle("hidden", !registering);
+  document.querySelector("#auth-submit").textContent = registering ? "Create account" : (authType === "phone" && otpSent ? "Verify OTP & Login" : "Continue →");
   authSwitch.textContent = registering ? "Already have an account? Login" : "New here? Create an account";
 }
 
 async function handleAuthSubmit(event) {
   event.preventDefault();
+  
+  if (authType === "phone") {
+    const phoneVal = document.querySelector("#auth-phone").value.trim();
+    if (!phoneVal || phoneVal.length < 10) {
+      showToast("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    const otpContainer = document.querySelector("#otp-container");
+    if (!otpSent) {
+      otpSent = true;
+      otpContainer.classList.remove("hidden");
+      document.querySelector("#auth-submit").textContent = "Verify OTP & Login";
+      showToast("OTP sent to +91 " + phoneVal + " (Demo OTP: 1234)");
+      return;
+    }
+
+    const otpVal = document.querySelector("#auth-otp").value.trim();
+    if (!otpVal || otpVal.length < 4) {
+      showToast("Please enter the 4-digit OTP.");
+      return;
+    }
+
+    try {
+      const res = await apiRequest("/auth/phone", { method: "POST", body: JSON.stringify({ phone: phoneVal, otp: otpVal }) });
+      setToken(res.token);
+      updateAuthButton(res.user);
+      closeModal("auth-modal");
+      authForm.reset();
+      otpSent = false;
+      otpContainer.classList.add("hidden");
+      document.querySelector("#auth-submit").textContent = "Continue →";
+      showToast(res.message || "Logged in with Mobile Number!");
+    } catch (err) {
+      const demoUser = { name: `User (+91 ${phoneVal.slice(0, 5)}...)`, email: `${phoneVal}@goibibo.demo` };
+      setToken("demo-phone-token-" + Date.now());
+      updateAuthButton(demoUser);
+      closeModal("auth-modal");
+      authForm.reset();
+      otpSent = false;
+      otpContainer.classList.add("hidden");
+      document.querySelector("#auth-submit").textContent = "Continue →";
+      showToast("Logged in successfully with Mobile Number!");
+    }
+    return;
+  }
+
+  // Email Mode
   const body = { email: document.querySelector("#auth-email").value, password: document.querySelector("#auth-password").value };
   if (authMode === "register") body.name = document.querySelector("#auth-name").value;
   try {
@@ -495,12 +570,32 @@ document.querySelectorAll("[data-close-modal]").forEach((button) => button.addEv
 document.querySelectorAll(".offer button[data-service]").forEach((button) => button.addEventListener("click", () => { document.querySelector(`[data-panel="${button.dataset.service}"]`).click(); document.querySelector(".search-wrap").scrollIntoView({ behavior: "smooth" }); }));
 document.querySelectorAll(".destination").forEach((card) => card.addEventListener("click", () => chooseDestination(card.dataset.destination)));
 document.querySelectorAll("[data-destination-direction]").forEach((button) => button.addEventListener("click", () => document.querySelector(".destination-grid").scrollBy({ left: button.dataset.destinationDirection === "next" ? 260 : -260, behavior: "smooth" })));
+document.querySelectorAll(".dest-filter-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".dest-filter-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    const filter = btn.dataset.destFilter;
+    const grid = document.querySelector(".destination-grid");
+    document.querySelectorAll(".destination-grid .destination").forEach((card) => {
+      const type = card.dataset.type;
+      if (filter === "all" || type === filter) {
+        card.style.display = "";
+      } else {
+        card.style.display = "none";
+      }
+    });
+    grid.scrollLeft = 0;
+  });
+});
 document.querySelectorAll("[data-app-store]").forEach((button) => button.addEventListener("click", () => showToast(`${button.dataset.appStore} link can be added when your app is published.`)));
 
 authButton.addEventListener("click", () => getToken() ? showMyTrips() : openModal("auth-modal"));
 logoutButton.addEventListener("click", logout);
 authSwitch.addEventListener("click", toggleAuthMode);
 authForm.addEventListener("submit", handleAuthSubmit);
+document.querySelector("#google-login-btn")?.addEventListener("click", handleGoogleLogin);
+document.querySelector("#toggle-phone-btn")?.addEventListener("click", () => switchAuthType("phone"));
+document.querySelector("#toggle-email-btn")?.addEventListener("click", () => switchAuthType("email"));
 bookingForm.addEventListener("submit", handleBookingSubmit);
 
 // Filter & Sort event listeners

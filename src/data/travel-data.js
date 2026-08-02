@@ -151,7 +151,11 @@ const inventory = {
     { id: "HL-101", name: "Maldives Luxury Beach Escape", location: "Maldives", duration: "4 nights / 5 days", price: 42999, rating: 4.9 },
     { id: "HL-102", name: "Dubai Desert & City Explorer", location: "Dubai", duration: "4 nights / 5 days", price: 28499, rating: 4.7 },
     { id: "HL-103", name: "Manali Snowy Mountain Break", location: "Manali", duration: "3 nights / 4 days", price: 9999, rating: 4.5 },
-    { id: "HL-104", name: "Bali Island Paradise getaway", location: "Bali", duration: "5 nights / 6 days", price: 32999, rating: 4.8 }
+    { id: "HL-104", name: "Bali Island Paradise getaway", location: "Bali", duration: "5 nights / 6 days", price: 32999, rating: 4.8 },
+    { id: "HL-105", name: "Goa Beach & Nightlife Fiesta", location: "Goa", duration: "3 nights / 4 days", price: 12499, rating: 4.6 },
+    { id: "HL-106", name: "Paris Romantic Eiffel Special", location: "Paris", duration: "5 nights / 6 days", price: 58999, rating: 4.9 },
+    { id: "HL-107", name: "Singapore Universal & Marina Bay", location: "Singapore", duration: "4 nights / 5 days", price: 36500, rating: 4.8 },
+    { id: "HL-108", name: "Kashmir Paradise Valley Tour", location: "Kashmir", duration: "4 nights / 5 days", price: 14999, rating: 4.7 }
   ]
 };
 
@@ -190,7 +194,11 @@ const destinations = [
   { id: "DST-1", name: "Maldives", category: "Beaches", startingPrice: 42999 },
   { id: "DST-2", name: "Dubai", category: "City break", startingPrice: 28499 },
   { id: "DST-3", name: "Manali", category: "Mountains", startingPrice: 9999 },
-  { id: "DST-4", name: "Bali", category: "Islands", startingPrice: 32999 }
+  { id: "DST-4", name: "Bali", category: "Islands", startingPrice: 32999 },
+  { id: "DST-5", name: "Goa", category: "Sun & Sand", startingPrice: 12499 },
+  { id: "DST-6", name: "Paris", category: "Romance", startingPrice: 58999 },
+  { id: "DST-7", name: "Singapore", category: "Theme Parks", startingPrice: 36500 },
+  { id: "DST-8", name: "Kashmir", category: "Paradise", startingPrice: 14999 }
 ];
 
 module.exports = { airports, destinations, flights, inventory, offers, promoCoupons };

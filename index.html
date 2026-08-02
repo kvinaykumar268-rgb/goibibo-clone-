@@ -33,11 +33,36 @@
 
       <section class="search-wrap" aria-label="Travel search">
         <div class="tabs">
-          <button class="tab active" data-panel="flights"><i>✈</i> Flights</button>
-          <button class="tab" data-panel="hotels"><i>⌂</i> Hotels</button>
-          <button class="tab" data-panel="trains"><i>▰</i> Trains</button>
-          <button class="tab" data-panel="buses"><i>▱</i> Buses</button>
-          <button class="tab" data-panel="holidays"><i>☀</i> Holidays</button>
+          <button class="tab active" data-panel="flights">
+            <span class="tab-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.1-1.3.3-1.5 1-.2.7.1 1.4.7 1.8l5.8 4-2.8 2.8-2.6-.6c-.4-.1-.8.1-1.1.4l-.6.6 3.5 2 2 3.5.6-.6c.3-.3.5-.7.4-1.1l-.6-2.6 2.8-2.8 4 5.8c.4.6 1.1.9 1.8.7.7-.2 1.1-.8 1-1.5z"/></svg>
+            </span>
+            <span>Flights</span>
+          </button>
+          <button class="tab" data-panel="hotels">
+            <span class="tab-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><path d="m9 22 3-8 3 8"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
+            </span>
+            <span>Hotels</span>
+          </button>
+          <button class="tab" data-panel="trains">
+            <span class="tab-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="3" rx="3"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-3 3"/><path d="m16 19 3 3"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/></svg>
+            </span>
+            <span>Trains</span>
+          </button>
+          <button class="tab" data-panel="buses">
+            <span class="tab-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h20"/><path d="M18 18h.01"/><path d="M6 18h.01"/><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M4 19v2"/><path d="M20 19v2"/></svg>
+            </span>
+            <span>Buses</span>
+          </button>
+          <button class="tab" data-panel="holidays">
+            <span class="tab-icon-badge">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            </span>
+            <span>Holidays</span>
+          </button>
         </div>
         <div class="trip-type">
           <label><input type="radio" name="trip" checked /> Round trip</label>
@@ -128,38 +153,73 @@
             <p class="eyebrow orange">FEEL THE WORLD</p>
             <h2>Popular right now</h2>
           </div>
-          <div class="arrows">
-            <button type="button" data-destination-direction="previous">←</button>
-            <button type="button" data-destination-direction="next">→</button>
+          <div class="destination-head-right">
+            <div class="destination-filters">
+              <button type="button" class="dest-filter-btn active" data-dest-filter="all">All Trips</button>
+              <button type="button" class="dest-filter-btn" data-dest-filter="national">🇮🇳 Domestic</button>
+              <button type="button" class="dest-filter-btn" data-dest-filter="international">✈️ International</button>
+            </div>
+            <div class="arrows">
+              <button type="button" data-destination-direction="previous">←</button>
+              <button type="button" data-destination-direction="next">→</button>
+            </div>
           </div>
         </div>
         <div class="destination-grid">
-          <article class="destination beach" data-destination="Maldives">
+          <article class="destination beach" data-destination="Maldives" data-type="international">
             <span class="pill">BEACHES</span>
             <div>
               <h3>Maldives</h3>
               <p>From ₹42,999 / person</p>
             </div>
           </article>
-          <article class="destination cityscape" data-destination="Dubai">
+          <article class="destination cityscape" data-destination="Dubai" data-type="international">
             <span class="pill">CITY BREAK</span>
             <div>
               <h3>Dubai</h3>
               <p>From ₹28,499 / person</p>
             </div>
           </article>
-          <article class="destination mountain" data-destination="Manali">
+          <article class="destination mountain" data-destination="Manali" data-type="national">
             <span class="pill">MOUNTAINS</span>
             <div>
               <h3>Manali</h3>
               <p>From ₹9,999 / person</p>
             </div>
           </article>
-          <article class="destination ocean" data-destination="Bali">
+          <article class="destination ocean" data-destination="Bali" data-type="international">
             <span class="pill">ISLANDS</span>
             <div>
               <h3>Bali</h3>
               <p>From ₹32,999 / person</p>
+            </div>
+          </article>
+          <article class="destination goa" data-destination="Goa" data-type="national">
+            <span class="pill">SUN & SAND</span>
+            <div>
+              <h3>Goa</h3>
+              <p>From ₹12,499 / person</p>
+            </div>
+          </article>
+          <article class="destination paris" data-destination="Paris" data-type="international">
+            <span class="pill">ROMANCE</span>
+            <div>
+              <h3>Paris</h3>
+              <p>From ₹58,999 / person</p>
+            </div>
+          </article>
+          <article class="destination singapore" data-destination="Singapore" data-type="international">
+            <span class="pill">THEME PARKS</span>
+            <div>
+              <h3>Singapore</h3>
+              <p>From ₹36,500 / person</p>
+            </div>
+          </article>
+          <article class="destination kashmir" data-destination="Kashmir" data-type="national">
+            <span class="pill">PARADISE</span>
+            <div>
+              <h3>Kashmir</h3>
+              <p>From ₹14,999 / person</p>
             </div>
           </article>
         </div>
@@ -199,12 +259,51 @@
         <button class="modal-close" data-close-modal="auth-modal" type="button">×</button>
         <p class="eyebrow orange" id="auth-kicker">WELCOME BACK</p>
         <h2 id="auth-title">Login to your account</h2>
+
+        <!-- Google Quick Login -->
+        <button class="google-auth-btn" id="google-login-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/><path fill="#FBBC05" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.3-1.78L.97 4.96A9.008 9.008 0 0 0 0 9c0 1.45.35 2.82.97 4.04l2.91-2.26z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.59C13.46.89 11.43 0 9 0 5.48 0 2.45 2.02.97 4.96l2.91 2.26C4.6 5.05 6.62 3.58 9 3.58z"/></svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Auth Method Selector (Phone vs Email) -->
+        <div class="auth-type-toggle">
+          <button class="auth-toggle-btn active" id="toggle-phone-btn" type="button">📱 Phone Number</button>
+          <button class="auth-toggle-btn" id="toggle-email-btn" type="button">✉️ Email Address</button>
+        </div>
+
         <form id="auth-form">
-          <label id="name-field">Full name<input id="auth-name" type="text" placeholder="Your name" /></label>
-          <label>Email address<input id="auth-email" type="email" placeholder="you@example.com" required /></label>
-          <label>Password<input id="auth-password" type="password" placeholder="Minimum 6 characters" minlength="6" required /></label>
-          <button class="primary-button" id="auth-submit" type="submit">Login</button>
+          <label id="name-field" class="hidden">Full name<input id="auth-name" type="text" placeholder="Your full name" /></label>
+          
+          <!-- PHONE LOGIN FIELD -->
+          <div id="phone-auth-container">
+            <label>Mobile Number
+              <div class="phone-input-group">
+                <span class="country-code">🇮🇳 +91</span>
+                <input id="auth-phone" type="tel" placeholder="Enter 10-digit number" maxlength="10" />
+              </div>
+            </label>
+            <div id="otp-container" class="hidden">
+              <label>Enter 4-Digit OTP
+                <input id="auth-otp" type="text" placeholder="e.g. 1234" maxlength="4" />
+              </label>
+              <small class="otp-hint">Demo OTP is <b>1234</b></small>
+            </div>
+          </div>
+
+          <!-- EMAIL LOGIN FIELDS -->
+          <div id="email-auth-container" class="hidden">
+            <label>Email address<input id="auth-email" type="email" placeholder="you@example.com" /></label>
+            <label id="password-field">Password<input id="auth-password" type="password" placeholder="Minimum 6 characters" minlength="6" /></label>
+          </div>
+
+          <button class="primary-button" id="auth-submit" type="submit">Continue →</button>
         </form>
+
         <button class="text-button" id="auth-switch" type="button">New here? Create an account</button>
       </div>
     </div>
