@@ -36,8 +36,9 @@ function serveStaticFile(request, response) {
   sendFile(response, filePath, contentType);
 }
 
-const server = http.createServer((request, response) => {
-  const requestUrl = new URL(request.url, `http://${request.headers.host}`);
+function handleRequest(request, response) {
+  const host = request.headers.host || "localhost";
+  const requestUrl = new URL(request.url, `http://${host}`);
 
   if (requestUrl.pathname.startsWith("/api/")) {
     handleApiRequest(request, response, requestUrl);
@@ -45,8 +46,13 @@ const server = http.createServer((request, response) => {
   }
 
   serveStaticFile(request, response);
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`Goibibo clone is running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  const server = http.createServer(handleRequest);
+  server.listen(PORT, () => {
+    console.log(`Goibibo clone is running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = handleRequest;
