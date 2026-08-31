@@ -250,10 +250,59 @@ function cancelBooking(request, response, bookingId) {
   sendJson(response, 200, { message: "Booking cancelled successfully.", booking });
 }
 
+async function phoneAuth(request, response) {
+  const { phone } = await readRequestBody(request);
+  const cleanPhone = phone?.trim() || "9876543210";
+  const database = readDatabase();
+  let user = database.users.find((u) => u.phone === cleanPhone || u.email === `${cleanPhone}@goibibo.demo`);
+
+  if (!user) {
+    user = {
+      id: createId("USR"),
+      name: `User (+91 ${cleanPhone.slice(0, 5)}...)`,
+      phone: cleanPhone,
+      email: `${cleanPhone}@goibibo.demo`,
+      createdAt: new Date().toISOString(),
+    };
+    database.users.push(user);
+  }
+
+  const token = createToken();
+  database.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString() });
+  writeDatabase(database);
+
+  sendJson(response, 200, { message: "Login successful with Mobile OTP.", token, user: publicUser(user) });
+}
+
+async function googleAuth(request, response) {
+  const database = readDatabase();
+  let user = database.users.find((u) => u.email === "rahul.google@gmail.com");
+
+  if (!user) {
+    user = {
+      id: createId("USR"),
+      name: "Rahul Sharma",
+      email: "rahul.google@gmail.com",
+      createdAt: new Date().toISOString(),
+    };
+    database.users.push(user);
+  }
+
+  const token = createToken();
+  database.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString() });
+  writeDatabase(database);
+
+  sendJson(response, 200, { message: "Signed in with Google.", token, user: publicUser(user) });
+}
+
 async function handleApiRequest(request, response, requestUrl) {
   try {
     const { method } = request;
-    const { pathname, searchParams } = requestUrl;
+    let pathname = requestUrl.pathname;
+    if (!pathname.startsWith("/api")) {
+      pathname = `/api${pathname.startsWith("/") ? "" : "/"}${pathname}`;
+    }
+    const searchParams = requestUrl.searchParams;
     const bookingMatch = pathname.match(/^\/api\/bookings\/([^/]+)\/cancel$/);
 
     if (method === "GET" && pathname === "/api/health") {
@@ -293,6 +342,8 @@ async function handleApiRequest(request, response, requestUrl) {
     if (method === "POST" && pathname === "/api/auth/register") return registerUser(request, response);
     if (method === "POST" && pathname === "/api/auth/login") return loginUser(request, response);
     if (method === "POST" && pathname === "/api/auth/logout") return logoutUser(request, response);
+    if (method === "POST" && pathname === "/api/auth/phone") return phoneAuth(request, response);
+    if (method === "POST" && pathname === "/api/auth/google") return googleAuth(request, response);
 
     if (method === "GET" && pathname === "/api/auth/me") {
       const user = getAuthenticatedUser(request);
@@ -311,3 +362,4 @@ async function handleApiRequest(request, response, requestUrl) {
 }
 
 module.exports = { handleApiRequest };
+

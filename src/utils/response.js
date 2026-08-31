@@ -14,6 +14,19 @@ function sendFile(response, filePath, contentType) {
 }
 
 function readRequestBody(request) {
+  if (request.body !== undefined && request.body !== null) {
+    if (typeof request.body === "object") {
+      return Promise.resolve(request.body);
+    }
+    if (typeof request.body === "string" && request.body.trim().length > 0) {
+      try {
+        return Promise.resolve(JSON.parse(request.body));
+      } catch (error) {
+        return Promise.reject(new Error("Request body must be valid JSON."));
+      }
+    }
+  }
+
   return new Promise((resolve, reject) => {
     let body = "";
     const maximumBodySize = 100_000;
@@ -39,3 +52,4 @@ function readRequestBody(request) {
 }
 
 module.exports = { readRequestBody, sendFile, sendJson };
+

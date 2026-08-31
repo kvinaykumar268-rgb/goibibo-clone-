@@ -29,10 +29,17 @@ let currentBookingDetails = null;
 let appliedDiscount = 0;
 let appliedCouponCode = null;
 
-function getToken() { return localStorage.getItem("goibibo-demo-token"); }
-function setToken(token) { localStorage.setItem("goibibo-demo-token", token); }
-function removeToken() { localStorage.removeItem("goibibo-demo-token"); }
+function getToken() {
+  try { return localStorage.getItem("goibibo-demo-token"); } catch (e) { return null; }
+}
+function setToken(token) {
+  try { localStorage.setItem("goibibo-demo-token", token); } catch (e) {}
+}
+function removeToken() {
+  try { localStorage.removeItem("goibibo-demo-token"); } catch (e) {}
+}
 function localDateValue() { return new Date().toLocaleDateString("en-CA"); }
+
 
 function openModal(modalId) {
   const modal = document.querySelector(`#${modalId}`);

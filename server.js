@@ -13,10 +13,15 @@ const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
   ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".ico": "image/x-icon",
 };
 
-function serveStaticFile(request, response) {
-  const requestedPath = request.url === "/" ? "/index.html" : request.url;
+function serveStaticFile(request, response, requestUrl) {
+  const requestedPath = requestUrl.pathname === "/" ? "/index.html" : requestUrl.pathname;
   const safePath = path.normalize(requestedPath).replace(/^([/\\])+/, "");
   const filePath = path.join(PUBLIC_DIRECTORY, safePath);
 
@@ -40,12 +45,12 @@ function handleRequest(request, response) {
   const host = request.headers.host || "localhost";
   const requestUrl = new URL(request.url, `http://${host}`);
 
-  if (requestUrl.pathname.startsWith("/api/")) {
+  if (requestUrl.pathname.startsWith("/api")) {
     handleApiRequest(request, response, requestUrl);
     return;
   }
 
-  serveStaticFile(request, response);
+  serveStaticFile(request, response, requestUrl);
 }
 
 if (require.main === module) {
@@ -56,3 +61,4 @@ if (require.main === module) {
 }
 
 module.exports = handleRequest;
+
