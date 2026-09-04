@@ -7,14 +7,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (function () {
+        try {
+          const savedTheme = localStorage.getItem("goibibo-theme");
+          if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.setAttribute("data-theme", "dark");
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="topbar">
       <a class="brand" href="#"><span>go</span>ibibo</a>
       <nav><a href="#offers">Offers</a><a href="#trips" id="my-trips-link">My Trips</a><a href="#help">Help</a></nav>
-      <button class="login" id="auth-button" type="button">Login / Sign up</button>
-      <button class="logout hidden" id="logout-button" type="button">Logout</button>
+      <div class="topbar-actions">
+        <button class="theme-toggle" id="theme-toggle-btn" type="button" aria-label="Toggle dark mode" title="Switch between light and dark mode">
+          <span class="theme-icon sun-icon" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          </span>
+          <span class="theme-icon moon-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </span>
+          <span class="theme-toggle-text">Dark</span>
+        </button>
+        <button class="login" id="auth-button" type="button">Login / Sign up</button>
+        <button class="logout hidden" id="logout-button" type="button">Logout</button>
+      </div>
     </header>
     <main>
       <section class="hero">

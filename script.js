@@ -3,6 +3,7 @@ const authButton = document.querySelector("#auth-button");
 const logoutButton = document.querySelector("#logout-button");
 const authForm = document.querySelector("#auth-form");
 const authSwitch = document.querySelector("#auth-switch");
+const themeToggleButton = document.querySelector("#theme-toggle-btn");
 const bookingForm = document.querySelector("#booking-form");
 const myTripsLink = document.querySelector("#my-trips-link");
 const resultsList = document.querySelector("#results-list");
@@ -690,5 +691,91 @@ function initHeroTextRotator() {
   }, 3500);
 }
 
+// THEME MANAGEMENT (LIGHT / DARK MODE)
+function getStoredTheme() {
+  try {
+    return localStorage.getItem("goibibo-theme");
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredTheme(theme) {
+  try {
+    localStorage.setItem("goibibo-theme", theme);
+  } catch (e) {}
+}
+
+function getCurrentEffectiveTheme() {
+  const currentAttr = document.documentElement.getAttribute("data-theme");
+  if (currentAttr === "dark" || currentAttr === "light") {
+    return currentAttr;
+  }
+  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    return "dark";
+  }
+  return "light";
+}
+
+function updateThemeToggleUI(theme) {
+  if (!themeToggleButton) return;
+  const isDark = theme === "dark";
+  const labelEl = themeToggleButton.querySelector(".theme-toggle-text");
+  if (labelEl) {
+    labelEl.textContent = isDark ? "Light" : "Dark";
+  }
+  themeToggleButton.setAttribute(
+    "aria-label",
+    isDark ? "Switch to light mode" : "Switch to dark mode"
+  );
+  themeToggleButton.setAttribute(
+    "title",
+    isDark ? "Switch to light mode" : "Switch to dark mode"
+  );
+}
+
+function applyTheme(theme, notify = false) {
+  document.documentElement.setAttribute("data-theme", theme);
+  setStoredTheme(theme);
+  updateThemeToggleUI(theme);
+  if (notify) {
+    showToast(theme === "dark" ? "🌙 Switched to Dark Mode" : "☀️ Switched to Light Mode");
+  }
+}
+
+function toggleTheme() {
+  const current = getCurrentEffectiveTheme();
+  const nextTheme = current === "dark" ? "light" : "dark";
+  applyTheme(nextTheme, true);
+}
+
+function initTheme() {
+  const saved = getStoredTheme();
+  if (saved) {
+    applyTheme(saved, false);
+  } else {
+    const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = prefersDark ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", initialTheme);
+    updateThemeToggleUI(initialTheme);
+  }
+
+  if (themeToggleButton) {
+    themeToggleButton.addEventListener("click", toggleTheme);
+  }
+
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+      if (!getStoredTheme()) {
+        const newTheme = e.matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        updateThemeToggleUI(newTheme);
+      }
+    });
+  }
+}
+
 initHeroTextRotator();
+initTheme();
+
 
