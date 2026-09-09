@@ -23,9 +23,13 @@ const MIME_TYPES = {
 function serveStaticFile(request, response, requestUrl) {
   const requestedPath = requestUrl.pathname === "/" ? "/index.html" : requestUrl.pathname;
   const safePath = path.normalize(requestedPath).replace(/^([/\\])+/, "");
-  const filePath = path.join(PUBLIC_DIRECTORY, safePath);
+  let filePath = path.join(PUBLIC_DIRECTORY, safePath);
 
-  if (!filePath.startsWith(PUBLIC_DIRECTORY)) {
+  if (!fs.existsSync(filePath)) {
+    filePath = path.join(process.cwd(), safePath);
+  }
+
+  if (!filePath.startsWith(PUBLIC_DIRECTORY) && !filePath.startsWith(process.cwd())) {
     sendJson(response, 403, { message: "Access denied." });
     return;
   }
