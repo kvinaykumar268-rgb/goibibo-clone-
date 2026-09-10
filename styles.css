@@ -258,7 +258,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 7.5%;
+  padding: 0 max(24px, 4.5vw);
   position: relative;
   z-index: 3;
   transition: background-color 0.28s ease, border-color 0.28s ease;
@@ -319,7 +319,7 @@ nav a {
   min-width: 25%;
   height: 100%;
   position: relative;
-  padding: 65px 7.5%;
+  padding: 65px max(24px, 4.5vw);
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -482,6 +482,7 @@ h2 {
   font-size: 15px;
   line-height: 1.6;
   color: #d6e7df;
+  max-width: 540px;
   position: relative;
   z-index: 2;
   animation: heroFadeSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
@@ -490,7 +491,7 @@ h2 {
 
 .hero-stats {
   position: absolute;
-  right: 8%;
+  right: max(24px, 4.5vw);
   bottom: 40px;
   display: flex;
   gap: 34px;
@@ -802,7 +803,7 @@ h2 {
 .hero-slider-controls {
   position: absolute;
   top: 24px;
-  right: 7.5%;
+  right: max(24px, 4.5vw);
   z-index: 6;
   display: flex;
   align-items: center;
@@ -1751,7 +1752,7 @@ h2 {
 footer {
   background: #143d31;
   color: #d5e2da;
-  padding: 34px 7.5%;
+  padding: 34px max(24px, 4.5vw);
   display: flex;
   align-items: center;
   gap: 35px;
