@@ -790,18 +790,21 @@ function initHeroCarousel() {
   const nextBtn = document.querySelector("#hero-slide-next");
   const couponBtn = document.querySelector("#ad-hero-coupon-btn");
   const ctaBtn = document.querySelector("#ad-hero-cta-btn");
+  const resortCouponBtn = document.querySelector("#resort-coupon-btn");
+  const resortCtaBtn = document.querySelector("#resort-cta-btn");
 
   if (!heroSection || !track) return;
 
-  const totalSlides = 2;
+  const totalSlides = 3;
   let currentSlide = 0;
   let slideInterval = null;
   let isHovered = false;
 
   function goToSlide(index) {
     currentSlide = (index + totalSlides) % totalSlides;
-    // Slide left: translateX(-0%) for slide 0, translateX(-50%) for slide 1
-    track.style.transform = `translateX(-${currentSlide * 50}%)`;
+    // Slide left: translateX(-0%) for slide 0, -33.333% for slide 1, -66.666% for slide 2
+    const slideOffset = currentSlide * (100 / totalSlides);
+    track.style.transform = `translateX(-${slideOffset}%)`;
 
     dots.forEach((dot, i) => {
       dot.classList.toggle("active", i === currentSlide);
@@ -871,7 +874,7 @@ function initHeroCarousel() {
     }
   }, { passive: true });
 
-  // Ad Slide Actions: 1-Click Promo Code Copy
+  // Slide 2: 1-Click Promo Code Copy
   if (couponBtn) {
     couponBtn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -883,7 +886,7 @@ function initHeroCarousel() {
     });
   }
 
-  // Ad Slide Actions: Explore Dubai Deals CTA
+  // Slide 2: Explore Dubai Deals CTA
   if (ctaBtn) {
     ctaBtn.addEventListener("click", () => {
       const fromInput = document.querySelector("#flight-from");
@@ -907,10 +910,49 @@ function initHeroCarousel() {
     });
   }
 
+  // Slide 3: 1-Click Resort Promo Code Copy
+  if (resortCouponBtn) {
+    resortCouponBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const code = "PARADISE45";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
+      showToast(`Promo code ${code} copied! Flat 45% off on Island Resorts.`);
+    });
+  }
+
+  // Slide 3: Explore Island Resorts CTA
+  if (resortCtaBtn) {
+    resortCtaBtn.addEventListener("click", () => {
+      // Switch to Hotels tab
+      const hotelTab = document.querySelector('.tab[data-panel="hotels"]');
+      if (hotelTab) {
+        hotelTab.click();
+      }
+
+      // Pre-fill location
+      const hotelCity = document.querySelector("#hotel-city");
+      if (hotelCity) {
+        hotelCity.value = "Maldives";
+      }
+
+      const searchWrap = document.querySelector(".search-wrap");
+      if (searchWrap) {
+        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchWrap.classList.add("highlight-pulse");
+        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+      }
+
+      showToast(`Luxury Maldives Resorts loaded! Click "Search Hotels".`);
+    });
+  }
+
   // Kick off auto slider
   startAutoSlide();
 }
 
 initHeroCarousel();
+
 
 

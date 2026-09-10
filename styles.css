@@ -308,15 +308,15 @@ nav a {
 
 .hero-slider-track {
   display: flex;
-  width: 200%;
+  width: 300%;
   height: 100%;
   transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
   will-change: transform;
 }
 
 .hero-slide {
-  width: 50%;
-  min-width: 50%;
+  width: 33.333333%;
+  min-width: 33.333333%;
   height: 100%;
   position: relative;
   padding: 65px 7.5%;
@@ -330,6 +330,10 @@ nav a {
 
 .slide-ad {
   background: linear-gradient(135deg, #0b1834 0%, #060d1e 50%, #101e3e 100%);
+}
+
+.slide-resorts {
+  background: linear-gradient(135deg, #2c0e38 0%, #120924 50%, #092036 100%);
 }
 
 .glow {
@@ -632,6 +636,104 @@ h2 {
 
 .ad-perks span {
   border-left-color: #e27d68 !important;
+}
+
+/* SLIDE 3: LUXURY ISLAND RESORTS & GETAWAYS */
+.resort-glow-sun {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.32) 0%, rgba(245, 158, 11, 0.18) 45%, transparent 72%);
+  right: -80px;
+  top: -170px;
+  filter: blur(14px);
+  pointer-events: none;
+  animation: glowFloatOne 8.5s ease-in-out infinite alternate;
+}
+
+.resort-glow-ring {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  border: 55px solid rgba(236, 72, 153, 0.18);
+  right: 90px;
+  bottom: -310px;
+  pointer-events: none;
+  animation: glowFloatTwo 11.5s ease-in-out infinite alternate;
+}
+
+.resort-badge-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #f472b6;
+  background: rgba(236, 72, 153, 0.18);
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.resort-timer-pill {
+  font-size: 11px;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.eyebrow.rose {
+  color: #f472b6;
+}
+
+.slide-resorts h1 em {
+  color: #f472b6 !important;
+}
+
+.resort-coupon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.38);
+  border: 1.5px dashed #f472b6;
+  border-radius: 24px;
+  padding: 9px 18px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.resort-coupon-btn:hover {
+  background: rgba(236, 72, 153, 0.22);
+  transform: translateY(-2px);
+}
+
+.resort-code-val {
+  font-size: 13px;
+  font-weight: 800;
+  color: #f472b6;
+  letter-spacing: 0.8px;
+}
+
+.resort-primary-btn {
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 11px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(236, 72, 153, 0.38);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resort-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(236, 72, 153, 0.55);
+}
+
+.resort-perks span {
+  border-left-color: #f472b6 !important;
 }
 
 /* HERO SLIDER CONTROLS (DOTS & ARROWS) */
