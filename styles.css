@@ -337,8 +337,8 @@ nav a {
 }
 
 .slide-sunrise {
-  background: linear-gradient(135deg, #fffdf2 0%, #fff7d6 32%, #fee78a 70%, #fed7aa 100%);
-  color: #0f2d24;
+  background: linear-gradient(135deg, #2b0b24 0%, #1e092c 50%, #100620 100%);
+  color: #ffffff;
 }
 
 .glow {
@@ -729,29 +729,31 @@ h2 {
   border-left-color: #2dd4bf !important;
 }
 
-/* SLIDE 4: BRIGHT SUNRISE GETAWAYS (LIGHT, ENERGETIC & NON-DARK) */
+/* SLIDE 4: GOLDEN SUNSET & SUNRISE ESCAPES */
 .slide-sunrise {
   text-align: left;
 }
 
 .slide-sunrise h1 {
-  color: #0c241c;
+  color: #ffffff;
   text-align: left;
 }
 
 .slide-sunrise h1 em {
-  color: #ea580c !important;
+  color: #fb923c !important;
+  text-shadow: 0 0 24px rgba(251, 146, 60, 0.45);
 }
 
 .slide-sunrise .hero-copy {
-  color: #334155;
+  color: #e5d7e4;
   text-align: left;
 }
 
-.slide-sunrise .eyebrow.amber-dark {
-  color: #c2410c;
+.slide-sunrise .eyebrow.amber-glow {
+  color: #fbbf24;
   font-weight: 800;
   text-align: left;
+  letter-spacing: 2px;
 }
 
 .sunrise-glow-orb {
@@ -759,7 +761,7 @@ h2 {
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(251, 146, 60, 0.35) 0%, rgba(253, 224, 71, 0.22) 50%, transparent 72%);
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.28) 0%, rgba(225, 29, 72, 0.15) 50%, transparent 72%);
   right: -60px;
   top: -160px;
   filter: blur(14px);
@@ -772,7 +774,7 @@ h2 {
   width: 420px;
   height: 420px;
   border-radius: 50%;
-  border: 55px solid rgba(245, 158, 11, 0.16);
+  border: 55px solid rgba(251, 146, 60, 0.18);
   right: 100px;
   bottom: -290px;
   pointer-events: none;
@@ -784,19 +786,19 @@ h2 {
   right: 14%;
   top: 40px;
   font-size: 38px;
-  color: rgba(234, 88, 12, 0.45);
+  color: rgba(251, 146, 60, 0.35);
   transform: rotate(-16deg);
   pointer-events: none;
   animation: glowFloatOne 10s ease-in-out infinite alternate;
 }
 
 .sunrise-stats span {
-  border-left-color: #ea580c !important;
-  color: #1e3a34 !important;
+  border-left-color: #f97316 !important;
+  color: #e2d3df !important;
 }
 
 .sunrise-stats b {
-  color: #0f2d24 !important;
+  color: #ffffff !important;
 }
 
 /* HERO SLIDER CONTROLS (DOTS & ARROWS) */
