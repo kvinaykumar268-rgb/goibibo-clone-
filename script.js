@@ -697,7 +697,7 @@ function initHeroTextRotator() {
 // THEME MANAGEMENT (LIGHT / DARK MODE)
 function getStoredTheme() {
   try {
-    return localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
+    return localStorage.getItem("pomaii-theme") || localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
   } catch (e) {
     return null;
   }
@@ -705,6 +705,7 @@ function getStoredTheme() {
 
 function setStoredTheme(theme) {
   try {
+    localStorage.setItem("pomaii-theme", theme);
     localStorage.setItem("tripwise-theme", theme);
   } catch (e) {}
 }
@@ -781,186 +782,154 @@ function initTheme() {
 initHeroTextRotator();
 initTheme();
 
-// HERO AUTOSLIDER & SPONSORED AD CAROUSEL
-function initHeroCarousel() {
-  const heroSection = document.querySelector("#hero-carousel");
-  const track = document.querySelector("#hero-slider-track");
-  const dots = document.querySelectorAll(".hero-dot");
-  const prevBtn = document.querySelector("#hero-slide-prev");
-  const nextBtn = document.querySelector("#hero-slide-next");
-  const couponBtn = document.querySelector("#ad-hero-coupon-btn");
-  const ctaBtn = document.querySelector("#ad-hero-cta-btn");
+// ==========================================================================
+// POMAII INTERACTIVE LUXURY FEATURES
+// ==========================================================================
+function initPomaiiInteractions() {
+  const searchWrap = document.querySelector(".search-wrap");
+  const searchToInput = document.querySelector("#search-to");
+  const searchFromInput = document.querySelector("#search-from");
+  const heroExploreBtn = document.querySelector("#hero-explore-now-btn");
+  const offerDiscoverBtn = document.querySelector("#offer-discover-packages-btn");
+  const quickSearchBtn = document.querySelector("#nav-search-trigger");
+  const wishlistBtn = document.querySelector("#nav-wishlist-btn");
+  const destinationCards = document.querySelectorAll(".nature-card");
+  const categoryPills = document.querySelectorAll(".cat-pill");
+  const storyCards = document.querySelectorAll(".story-card");
+  const storiesReadBtn = document.querySelector("#stories-read-btn");
+  const viewAllDestBtn = document.querySelector("#view-all-dest-btn");
+  const footerDestLinks = document.querySelectorAll("[data-footer-dest]");
 
-  if (!heroSection || !track) return;
-
-  const totalSlides = 4;
-  let currentSlide = 0;
-  let slideInterval = null;
-  let isHovered = false;
-
-  function goToSlide(index) {
-    currentSlide = (index + totalSlides) % totalSlides;
-    // Slide left: translateX(-0%) for slide 0, -33.333% for slide 1, -66.666% for slide 2
-    const slideOffset = currentSlide * (100 / totalSlides);
-    track.style.transform = `translateX(-${slideOffset}%)`;
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === currentSlide);
-    });
-  }
-
-  function startAutoSlide() {
-    stopAutoSlide();
-    slideInterval = setInterval(() => {
-      if (!isHovered) {
-        goToSlide(currentSlide + 1);
-      }
-    }, 6500);
-  }
-
-  function stopAutoSlide() {
-    if (slideInterval) {
-      clearInterval(slideInterval);
-      slideInterval = null;
+  function focusSearchWithHighlight(destinationName = "") {
+    if (searchToInput && destinationName) {
+      searchToInput.value = destinationName;
+    }
+    if (searchWrap) {
+      searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+      searchWrap.classList.add("highlight-pulse");
+      setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+    }
+    if (searchToInput) {
+      setTimeout(() => searchToInput.focus(), 350);
     }
   }
 
-  // Hover pauses autosliding so user can read/click smoothly
-  heroSection.addEventListener("mouseenter", () => { isHovered = true; });
-  heroSection.addEventListener("mouseleave", () => { isHovered = false; });
-
-  // Navigation Arrows
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      goToSlide(currentSlide - 1);
-      startAutoSlide();
+  // Hero "Explore Now" button
+  if (heroExploreBtn) {
+    heroExploreBtn.addEventListener("click", () => {
+      focusSearchWithHighlight();
+      showToast("Ready to explore! Enter destination or choose from popular picks below 🏔️");
     });
   }
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      goToSlide(currentSlide + 1);
-      startAutoSlide();
+  // Special Offer "Discover Packages" button
+  if (offerDiscoverBtn) {
+    offerDiscoverBtn.addEventListener("click", () => {
+      const holidaysTab = document.querySelector('.tab[data-panel="holidays"]');
+      if (holidaysTab) holidaysTab.click();
+      focusSearchWithHighlight("Switzerland");
+      showToast("🌲 Discovering curated adventure packages for Switzerland!");
     });
   }
 
-  // Navigation Dots
-  dots.forEach((dot) => {
-    dot.addEventListener("click", () => {
-      const idx = parseInt(dot.getAttribute("data-slide-index"), 10) || 0;
-      goToSlide(idx);
-      startAutoSlide();
-    });
-  });
-
-  // Touch Swipe Support on Mobile/Tablets
-  let touchStartX = 0;
-  heroSection.addEventListener("touchstart", (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  heroSection.addEventListener("touchend", (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        goToSlide(currentSlide + 1); // Swiped left -> next slide
-      } else {
-        goToSlide(currentSlide - 1); // Swiped right -> prev slide
-      }
-      startAutoSlide();
-    }
-  }, { passive: true });
-
-  // Slide 2: 1-Click Promo Code Copy
-  if (couponBtn) {
-    couponBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const code = "EMIRATES35";
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(code).catch(() => {});
-      }
-      showToast(`Promo code ${code} copied! Flat ₹3,500 off on Dubai flights.`);
+  // Quick Search icon in topbar
+  if (quickSearchBtn) {
+    quickSearchBtn.addEventListener("click", () => {
+      focusSearchWithHighlight();
     });
   }
 
-  // Slide 2: Explore Dubai Deals CTA
-  if (ctaBtn) {
-    ctaBtn.addEventListener("click", () => {
-      const fromInput = document.querySelector("#flight-from");
-      const toInput = document.querySelector("#flight-to");
-
-      if (fromInput && !fromInput.value) {
-        fromInput.value = "New Delhi";
-      }
-      if (toInput) {
-        toInput.value = "Dubai";
-      }
-
-      const searchWrap = document.querySelector(".search-wrap");
-      if (searchWrap) {
-        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
-        searchWrap.classList.add("highlight-pulse");
-        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
-      }
-
-      showToast(`Emirates Dubai offers loaded! Click "Search Flights".`);
+  // Wishlist icon
+  if (wishlistBtn) {
+    wishlistBtn.addEventListener("click", () => {
+      showToast("🤍 You have 2 saved dream escapes: Maldives & Banff, Canada!");
     });
   }
 
-  // Slide 3: Holiday Destination Chips Click
-  const holidayChips = document.querySelectorAll(".holiday-chip");
-  holidayChips.forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const dest = chip.getAttribute("data-dest") || "Manali";
+  // Popular Destination Cards Click -> Load destination & trigger search
+  destinationCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const dest = card.getAttribute("data-destination");
+      if (!dest) return;
       
-      // Switch to Holidays tab
-      const holidaysTab = document.querySelector('.tab[data-panel="holidays"]');
-      if (holidaysTab) {
-        holidaysTab.click();
-      }
+      focusSearchWithHighlight(dest);
+      showToast(`Selected ${dest}! Click "Search" or adjust dates.`);
 
-      const searchToInput = document.querySelector("#search-to");
-      if (searchToInput) {
-        searchToInput.value = dest;
-      }
-
-      const searchWrap = document.querySelector(".search-wrap");
-      if (searchWrap) {
-        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
-        searchWrap.classList.add("highlight-pulse");
-        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
-      }
-
-      showToast(`Showing handcrafted holiday packages for ${dest}!`);
+      // Auto-trigger search after a short delay so user sees transition
+      setTimeout(() => {
+        if (searchForm) {
+          const submitEvent = new Event("submit", { cancelable: true });
+          searchForm.dispatchEvent(submitEvent);
+        }
+      }, 500);
     });
   });
 
-  // Slide 3: Explore Holidays CTA
-  const holidayExploreBtn = document.querySelector("#holiday-explore-cta");
-  if (holidayExploreBtn) {
-    holidayExploreBtn.addEventListener("click", () => {
-      const holidaysTab = document.querySelector('.tab[data-panel="holidays"]');
-      if (holidaysTab) {
-        holidaysTab.click();
-      }
+  // Category Explorer Pills Click
+  categoryPills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      categoryPills.forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      
+      const category = pill.getAttribute("data-category") || "all";
+      
+      // Filter or highlight destination cards
+      destinationCards.forEach((card) => {
+        const cardCat = card.getAttribute("data-category");
+        if (category === "all" || cardCat === category) {
+          card.style.display = "block";
+          card.style.opacity = "1";
+          card.style.transform = "scale(1)";
+        } else {
+          card.style.opacity = "0.35";
+          card.style.transform = "scale(0.97)";
+        }
+      });
 
-      const searchWrap = document.querySelector(".search-wrap");
-      if (searchWrap) {
-        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
-        searchWrap.classList.add("highlight-pulse");
-        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
-      }
+      const label = pill.querySelector(".cat-label")?.textContent || category;
+      showToast(`Filtered for: ${label} escapes 🍃`);
+    });
+  });
 
-      showToast(`Explore 150+ Handcrafted Holiday Packages!`);
+  // Travel Stories
+  storyCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const title = card.querySelector("h3")?.textContent || "Travel Guide";
+      showToast(`Opening guide: "${title}" 📖`);
+    });
+  });
+
+  if (storiesReadBtn) {
+    storiesReadBtn.addEventListener("click", () => {
+      showToast("Explore 40+ curated travel tips, packing guides and local secrets! 🌍");
     });
   }
 
-  // Kick off auto slider
-  startAutoSlide();
+  // View All Destinations link
+  if (viewAllDestBtn) {
+    viewAllDestBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      // Reset categories
+      const allPill = document.querySelector('.cat-pill[data-category="all"]');
+      if (allPill) allPill.click();
+      focusSearchWithHighlight();
+      showToast("Showing all 100+ global nature escapes!");
+    });
+  }
+
+  // Footer destination links
+  footerDestLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const dest = link.getAttribute("data-footer-dest") || "Bali";
+      focusSearchWithHighlight(dest);
+      showToast(`Selected ${dest} from top destinations!`);
+    });
+  });
 }
 
-initHeroCarousel();
+initPomaiiInteractions();
+
 
 
 

@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tripwise — Travel made easy</title>
+    <title>Pomaii — Explore. Dream. Discover.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <meta name="color-scheme" content="light dark" />
     <script>
       (function () {
         try {
-          const savedTheme = localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
+          const savedTheme = localStorage.getItem("pomaii-theme") || localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
           if (savedTheme) {
             document.documentElement.setAttribute("data-theme", savedTheme);
           } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -23,345 +23,680 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- TOPBAR / NAVIGATION -->
     <header class="topbar">
-      <a class="brand" href="#"><span>Trip</span>wise</a>
-      <nav><a href="#offers">Offers</a><a href="#trips" id="my-trips-link">My Trips</a><a href="#help">Help</a></nav>
-      <div class="topbar-actions">
-        <button class="theme-toggle" id="theme-toggle-btn" type="button" aria-label="Toggle dark mode" title="Switch between light and dark mode">
-          <span class="theme-icon sun-icon" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      <div class="topbar-inner">
+        <a class="brand" href="#" title="Pomaii — Explore. Dream. Discover.">
+          <span class="brand-logo-mark" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
+              <rect width="36" height="36" rx="18" fill="#1b3c34"/>
+              <path d="M10 24L16 16L20 21L23 18L27 24H10Z" fill="#faf9f5"/>
+              <circle cx="23" cy="13" r="3" fill="#f28522"/>
+            </svg>
           </span>
-          <span class="theme-icon moon-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-          </span>
-          <span class="theme-toggle-text">Dark</span>
-        </button>
-        <button class="login" id="auth-button" type="button">Login / Sign up</button>
-        <button class="logout hidden" id="logout-button" type="button">Logout</button>
+          <div class="brand-text-group">
+            <span class="brand-name">Pomaii</span>
+            <span class="brand-tagline">Explore. Dream. Discover.</span>
+          </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main Navigation">
+          <a href="#" class="nav-link active">Home</a>
+          <a href="#destinations" class="nav-link">Destinations</a>
+          <a href="#tours" class="nav-link">Tours</a>
+          <a href="#stories" class="nav-link">Travel Guide</a>
+          <a href="#special-offers" class="nav-link">Blog</a>
+          <a href="#about" class="nav-link">About Us</a>
+        </nav>
+
+        <div class="topbar-actions">
+          <button class="icon-action-btn" id="nav-search-trigger" type="button" aria-label="Quick Search" title="Search destinations">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </button>
+
+          <button class="icon-action-btn wishlist-btn" id="nav-wishlist-btn" type="button" aria-label="Wishlist / Saved Trips" title="Wishlist">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            <span class="wishlist-badge" id="wishlist-count">2</span>
+          </button>
+
+          <button class="theme-toggle" id="theme-toggle-btn" type="button" aria-label="Toggle dark mode" title="Switch between light and dark mode">
+            <span class="theme-icon sun-icon" aria-hidden="true">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            </span>
+            <span class="theme-icon moon-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            </span>
+            <span class="theme-toggle-text">Dark</span>
+          </button>
+
+          <a href="#trips" id="my-trips-link" class="nav-my-trips">My Trips</a>
+
+          <button class="login-btn" id="auth-button" type="button">Login / Sign up</button>
+          <button class="logout-btn hidden" id="logout-button" type="button">Logout</button>
+
+          <button class="icon-action-btn grid-menu-btn" id="grid-menu-btn" type="button" aria-label="Quick menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="4" cy="4" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="4" r="2"/><circle cx="4" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="20" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="20" cy="20" r="2"/></svg>
+          </button>
+        </div>
       </div>
     </header>
+
     <main>
-      <section class="hero" id="hero-carousel">
-        <!-- HERO SLIDER CONTROLS -->
-        <div class="hero-slider-controls">
-          <div class="hero-slider-dots">
-            <button class="hero-dot active" data-slide-index="0" type="button" aria-label="Slide 1: Tripwise Intro"><span class="dot-bar"></span></button>
-            <button class="hero-dot" data-slide-index="1" type="button" aria-label="Slide 2: Sponsored Flight Deal"><span class="dot-bar"></span></button>
-            <button class="hero-dot" data-slide-index="2" type="button" aria-label="Slide 3: Curated Holidays"><span class="dot-bar"></span></button>
-            <button class="hero-dot" data-slide-index="3" type="button" aria-label="Slide 4: Sunrise Specials"><span class="dot-bar"></span></button>
-          </div>
-          <div class="hero-arrows">
-            <button class="hero-arrow-btn" id="hero-slide-prev" type="button" aria-label="Previous Slide">‹</button>
-            <button class="hero-arrow-btn" id="hero-slide-next" type="button" aria-label="Next Slide">›</button>
-          </div>
+      <!-- HERO SECTION: ALPINE NATURE SCENE & ORGANIC WAVE -->
+      <section class="nature-hero" id="hero-carousel">
+        <!-- High-res alpine lake background -->
+        <div class="hero-bg-container">
+          <img 
+            class="hero-bg-image" 
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=2200&q=85" 
+            alt="Scenic mountain alpine lake surrounded by pine trees and soaring snowy peaks"
+            loading="eager"
+          />
+          <div class="hero-bg-tint"></div>
         </div>
 
-        <div class="hero-slider-track" id="hero-slider-track">
-          <!-- SLIDE 1: MAIN HERO SECTION -->
-          <div class="hero-slide slide-main" data-slide="0">
-            <div class="glow glow-one"></div>
-            <div class="glow glow-two"></div>
-            <div class="hero-flying-plane">✈</div>
-            <p class="eyebrow">PLAN LESS. EXPERIENCE MORE.</p>
-            <h1>Your next story<br />starts <em id="hero-dynamic-text">here.</em></h1>
-            <p class="hero-copy">From spontaneous escapes to perfectly planned holidays,<br />we make every journey feel effortless.</p>
-            <div class="hero-stats">
-              <span class="stat-badge"><b>40M+</b> happy travellers</span>
-              <span class="stat-badge"><b>150+</b> countries to explore</span>
-              <span class="stat-badge"><b>24/7</b> travel support</span>
-            </div>
-          </div>
+        <!-- Organic Fluid Wave Mask / Overlay -->
+        <div class="hero-organic-wave" aria-hidden="true">
+          <svg viewBox="0 0 1440 820" fill="none" preserveAspectRatio="none">
+            <path d="M0 0H740C680 180 560 260 620 440C660 560 580 680 440 760C380 795 240 820 0 820V0Z" fill="currentColor" class="wave-shape-primary"/>
+            <path d="M0 0H790C730 200 620 280 670 470C710 600 620 710 490 780C420 815 280 820 0 820V0Z" fill="currentColor" fill-opacity="0.25" class="wave-shape-glow"/>
+          </svg>
+        </div>
 
-          <!-- SLIDE 2: SPONSORED PARTNER AD SLIDE -->
-          <div class="hero-slide slide-ad" data-slide="1">
-            <div class="ad-glow-orb"></div>
-            <div class="ad-glow-ring"></div>
-            <div class="ad-badge-top">
-              <span class="ad-sponsor-tag">⚡ SPONSORED PARTNER AD</span>
-              <span class="ad-timer-pill">Limited Period Mega Sale</span>
+        <!-- Floating Botanical Leaf Elements -->
+        <div class="floating-leaf leaf-1" aria-hidden="true">🍃</div>
+        <div class="floating-leaf leaf-2" aria-hidden="true">🌿</div>
+        <div class="floating-leaf leaf-3" aria-hidden="true">🌱</div>
+
+        <!-- Hero Left Content -->
+        <div class="hero-content-wrapper">
+          <div class="hero-text-block">
+            <div class="hero-eyebrow">
+              <span class="leaf-icon">🍃</span>
+              <span>EXPLORE THE WORLD</span>
             </div>
-            <p class="eyebrow orange">EMIRATES LUXURY SALE · DUBAI ESCAPES</p>
-            <h1>Fly Emirates to Dubai<br />Flat <em>₹3,500 Instant OFF</em></h1>
-            <p class="hero-copy">Experience luxury in the skies with gourmet dining, 30kg baggage &amp; complimentary UAE 48hr tourist visa assistance on round-trips.</p>
-            
-            <div class="ad-cta-row">
-              <button class="ad-coupon-banner-btn" id="ad-hero-coupon-btn" type="button" title="Click to copy promo code">
-                <span class="ad-code-label">PROMO CODE:</span>
-                <b class="ad-code-val">EMIRATES35</b>
-                <span class="ad-code-copy-tag">Copy Code 📋</span>
+            <h1 class="hero-heading">
+              Discover Nature.<br />
+              <span class="hero-heading-sub">Find Your Escape.</span>
+            </h1>
+            <p class="hero-subtext">
+              Breathtaking places, unforgettable experiences,<br class="hide-mobile" />
+              crafted just for you.
+            </p>
+            <div class="hero-cta-row">
+              <button class="hero-explore-btn" id="hero-explore-now-btn" type="button">
+                <span>Explore Now</span>
+                <span class="arrow">→</span>
               </button>
-              <button class="ad-hero-primary-btn" id="ad-hero-cta-btn" type="button">Book Dubai Flights →</button>
-            </div>
-
-            <div class="hero-stats ad-perks">
-              <span class="stat-badge"><b>Free Visa</b> assistance included</span>
-              <span class="stat-badge"><b>₹0 Fee</b> on date changes</span>
-              <span class="stat-badge"><b>5★ Service</b> Emirates A380</span>
             </div>
           </div>
+        </div>
 
-          <!-- SLIDE 3: CURATED HOLIDAYS & EXPERIENCES (NON-SPONSORED) -->
-          <div class="hero-slide slide-holidays" data-slide="2">
-            <div class="holiday-aurora-glow"></div>
-            <div class="holiday-stars-backdrop">✦　·　✦　·　✦</div>
-            <p class="eyebrow cyan">CURATED EXPERIENCES &amp; GETAWAYS</p>
-            <h1>Where will your next<br />story take <em class="cyan-highlight">you?</em></h1>
-            <p class="hero-copy">Handcrafted holiday packages featuring verified 4★+ stays, personalized itineraries, local expert guides &amp; 24/7 on-trip concierge.</p>
-            
-            <div class="holiday-pills-row">
-              <button class="holiday-chip" data-dest="Manali" type="button">🏔️ Manali from ₹9,999</button>
-              <button class="holiday-chip" data-dest="Goa" type="button">🏖️ Goa from ₹12,499</button>
-              <button class="holiday-chip" data-dest="Kashmir" type="button">❄️ Kashmir from ₹14,999</button>
-              <button class="holiday-explore-btn" id="holiday-explore-cta" type="button">Explore Holidays →</button>
+        <!-- FLOATING ROUNDED CAPSULE SEARCH BAR -->
+        <div class="search-capsule-container">
+          <section class="search-wrap" aria-label="Travel search booking widget">
+            <!-- Service Tabs: Flights, Hotels, Trains, Buses, Holidays -->
+            <div class="tabs">
+              <button class="tab active" data-panel="flights" type="button">
+                <span class="tab-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.1-1.3.3-1.5 1-.2.7.1 1.4.7 1.8l5.8 4-2.8 2.8-2.6-.6c-.4-.1-.8.1-1.1.4l-.6.6 3.5 2 2 3.5.6-.6c.3-.3.5-.7.4-1.1l-.6-2.6 2.8-2.8 4 5.8c.4.6 1.1.9 1.8.7.7-.2 1.1-.8 1-1.5z"/></svg>
+                </span>
+                <span>Flights</span>
+              </button>
+              <button class="tab" data-panel="hotels" type="button">
+                <span class="tab-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><path d="m9 22 3-8 3 8"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/></svg>
+                </span>
+                <span>Hotels</span>
+              </button>
+              <button class="tab" data-panel="trains" type="button">
+                <span class="tab-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="3" rx="3"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-3 3"/><path d="m16 19 3 3"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/></svg>
+                </span>
+                <span>Trains</span>
+              </button>
+              <button class="tab" data-panel="buses" type="button">
+                <span class="tab-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h20"/><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M4 19v2"/><path d="M20 19v2"/></svg>
+                </span>
+                <span>Buses</span>
+              </button>
+              <button class="tab" data-panel="holidays" type="button">
+                <span class="tab-icon-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                </span>
+                <span>Holidays</span>
+              </button>
             </div>
 
-            <div class="hero-stats holiday-stats">
-              <span class="stat-badge"><b>150+</b> Curated packages</span>
-              <span class="stat-badge"><b>4.8/5</b> Traveller rating</span>
-              <span class="stat-badge"><b>₹0 Fee</b> Rescheduling</span>
+            <!-- Trip Type Sub-Selector -->
+            <div class="trip-type">
+              <label><input type="radio" name="trip" value="round" checked /> Round trip</label>
+              <label><input type="radio" name="trip" value="oneway" /> One way</label>
+              <label><input type="radio" name="trip" value="multi" /> Multi-city</label>
             </div>
+
+            <!-- Elevated Pill Search Form -->
+            <form class="search-form capsule-form">
+              <!-- Where to? (From & To with Autocomplete) -->
+              <div class="capsule-field-group field-group-location">
+                <div class="field-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b3c34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                
+                <div class="field-subgroup">
+                  <div class="field-wrap">
+                    <label class="field city">
+                      <small>Where from?</small>
+                      <input id="search-from" value="New Delhi" autocomplete="off" required placeholder="From city/airport" />
+                    </label>
+                    <div class="autocomplete-dropdown hidden" id="from-suggestions"></div>
+                  </div>
+
+                  <button class="swap" type="button" aria-label="Swap cities" title="Swap From and To">⇄</button>
+
+                  <div class="field-wrap">
+                    <label class="field city">
+                      <small>Where to?</small>
+                      <input id="search-to" placeholder="Any destination" autocomplete="off" required />
+                    </label>
+                    <div class="autocomplete-dropdown hidden" id="to-suggestions"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="capsule-divider" aria-hidden="true"></div>
+
+              <!-- Check in / Departure Date -->
+              <div class="capsule-field-group">
+                <div class="field-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b3c34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                </div>
+                <label class="field">
+                  <small>Check in</small>
+                  <input id="search-date" type="date" required />
+                  <span class="field-caption">Add date</span>
+                </label>
+              </div>
+
+              <div class="capsule-divider" aria-hidden="true"></div>
+
+              <!-- Check out / Return Date -->
+              <div class="capsule-field-group">
+                <div class="field-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b3c34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                </div>
+                <label class="field">
+                  <small>Check out</small>
+                  <input id="return-date" type="date" />
+                  <span class="field-caption">Add date</span>
+                </label>
+              </div>
+
+              <div class="capsule-divider" aria-hidden="true"></div>
+
+              <!-- Travelers -->
+              <div class="capsule-field-group">
+                <div class="field-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b3c34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <label class="field travellers">
+                  <small>Travelers</small>
+                  <select id="search-passengers">
+                    <option value="1">1 Traveler</option>
+                    <option value="2" selected>2 Travelers</option>
+                    <option value="3">3 Travelers</option>
+                    <option value="4">4 Travelers</option>
+                    <option value="5">5+ Travelers</option>
+                  </select>
+                  <span class="field-caption">Economy</span>
+                </label>
+              </div>
+
+              <!-- Search CTA Button -->
+              <button class="search-btn capsule-search-btn" type="submit">
+                <span>Search</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              </button>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <!-- TRUST / VALUE BADGES ROW (Under Search) -->
+      <section class="trust-badges-bar">
+        <div class="trust-badge-item">
+          <div class="badge-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
           </div>
+          <div class="badge-text">
+            <h4>Handpicked Destinations</h4>
+            <p>Curated places you'll love.</p>
+          </div>
+        </div>
 
-          <!-- SLIDE 4: GOLDEN SUNSET & SUNRISE ESCAPES -->
-          <div class="hero-slide slide-sunrise" data-slide="3">
-            <div class="sunrise-glow-orb"></div>
-            <div class="sunrise-glow-ring"></div>
-            <div class="sunrise-flight-silhouette">✈</div>
-            <p class="eyebrow amber-glow">GOLDEN ESCAPES · SUNRISE &amp; SUNSET SPECIALS</p>
-            <h1>Chase the golden sun.<br />Discover new <em>horizons.</em></h1>
-            <p class="hero-copy">From early morning departures to tranquil twilight retreats,<br />experience luxury travel in every golden hour.</p>
-            <div class="hero-stats sunrise-stats">
-              <span class="stat-badge"><b>500+</b> golden escapes</span>
-              <span class="stat-badge"><b>150+</b> destinations</span>
-              <span class="stat-badge"><b>24/7</b> travel support</span>
-            </div>
+        <div class="trust-badge-item">
+          <div class="badge-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+          </div>
+          <div class="badge-text">
+            <h4>Best Price Guarantee</h4>
+            <p>Get the best deals always.</p>
+          </div>
+        </div>
+
+        <div class="trust-badge-item">
+          <div class="badge-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="badge-text">
+            <h4>Safe &amp; Trusted Travel</h4>
+            <p>Your safety is our priority.</p>
+          </div>
+        </div>
+
+        <div class="trust-badge-item">
+          <div class="badge-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <div class="badge-text">
+            <h4>24/7 Customer Support</h4>
+            <p>We're here for you anytime.</p>
           </div>
         </div>
       </section>
 
-      <section class="search-wrap" aria-label="Travel search">
-        <div class="tabs">
-          <button class="tab active" data-panel="flights">
-            <span class="tab-icon-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.7-.1-1.3.3-1.5 1-.2.7.1 1.4.7 1.8l5.8 4-2.8 2.8-2.6-.6c-.4-.1-.8.1-1.1.4l-.6.6 3.5 2 2 3.5.6-.6c.3-.3.5-.7.4-1.1l-.6-2.6 2.8-2.8 4 5.8c.4.6 1.1.9 1.8.7.7-.2 1.1-.8 1-1.5z"/></svg>
-            </span>
-            <span>Flights</span>
-          </button>
-          <button class="tab" data-panel="hotels">
-            <span class="tab-icon-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"/><path d="m9 22 3-8 3 8"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>
-            </span>
-            <span>Hotels</span>
-          </button>
-          <button class="tab" data-panel="trains">
-            <span class="tab-icon-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="16" x="4" y="3" rx="3"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="m8 19-3 3"/><path d="m16 19 3 3"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/></svg>
-            </span>
-            <span>Trains</span>
-          </button>
-          <button class="tab" data-panel="buses">
-            <span class="tab-icon-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M2 12h20"/><path d="M18 18h.01"/><path d="M6 18h.01"/><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M4 19v2"/><path d="M20 19v2"/></svg>
-            </span>
-            <span>Buses</span>
-          </button>
-          <button class="tab" data-panel="holidays">
-            <span class="tab-icon-badge">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            </span>
-            <span>Holidays</span>
-          </button>
-        </div>
-        <div class="trip-type">
-          <label><input type="radio" name="trip" checked /> Round trip</label>
-          <label><input type="radio" name="trip" /> One way</label>
-          <label><input type="radio" name="trip" /> Multi-city</label>
-        </div>
-        <form class="search-form">
-          <div class="field-wrap">
-            <label class="field city">
-              <small>FROM</small>
-              <input id="search-from" value="New Delhi" autocomplete="off" required />
-              <span>City or airport</span>
-            </label>
-            <div class="autocomplete-dropdown hidden" id="from-suggestions"></div>
+      <!-- POPULAR DESTINATIONS SECTION (Exact Cards as Reference) -->
+      <section class="nature-destinations" id="destinations">
+        <div class="section-head-nature">
+          <div class="section-title-wrap">
+            <h2>Popular Destinations <span class="leaf-em">🍃</span></h2>
           </div>
-
-          <button class="swap" type="button" aria-label="Swap cities">⇄</button>
-
-          <div class="field-wrap">
-            <label class="field city">
-              <small>TO</small>
-              <input id="search-to" placeholder="Where to?" autocomplete="off" />
-              <span>City, airport or destination</span>
-            </label>
-            <div class="autocomplete-dropdown hidden" id="to-suggestions"></div>
-          </div>
-
-          <label class="field">
-            <small>DEPARTURE</small>
-            <input id="search-date" type="date" required />
-            <span>Choose a date</span>
-          </label>
-          <label class="field">
-            <small>RETURN</small>
-            <input id="return-date" type="date" />
-            <span>Optional</span>
-          </label>
-          <label class="field travellers">
-            <small>TRAVELLERS</small>
-            <select id="search-passengers">
-              <option value="1">1 Traveller</option>
-              <option value="2">2 Travellers</option>
-              <option value="3">3 Travellers</option>
-              <option value="4">4 Travellers</option>
-            </select>
-            <span>Economy</span>
-          </label>
-          <button class="search-btn" type="submit">Search flights <span>→</span></button>
-        </form>
-      </section>
-
-      <section class="content" id="offers">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow orange">CURATED FOR YOU</p>
-            <h2>Deals worth taking off for</h2>
-          </div>
-          <a href="#offers" id="view-offers">View all offers <span>→</span></a>
+          <a href="#destinations" class="view-all-link" id="view-all-dest-btn">
+            <span>View All Destinations</span>
+            <span class="arrow">→</span>
+          </a>
         </div>
-        <div class="offer-grid">
-          <article class="offer coral">
-            <div class="offer-label">FLIGHTS</div>
-            <h3>Fly now, pay<br />later.</h3>
-            <p>Use code <b>GOFIRST</b> for ₹500 off<br />with easy EMI options.</p>
-            <button data-service="flights">Explore deal <span>→</span></button>
-            <div class="plane">✈</div>
+
+        <div class="destination-cards-grid">
+          <!-- CARD 1: BANFF, CANADA -->
+          <article class="nature-card" data-destination="Banff" data-type="international" data-category="nature">
+            <img 
+              class="card-photo" 
+              src="https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?auto=format&fit=crop&w=800&q=80" 
+              alt="Banff, Canada majestic turquoise glacial lakes and granite mountains" 
+              loading="lazy"
+            />
+            <div class="card-gradient-overlay"></div>
+            <div class="card-badge-rating">
+              <span class="star">★</span> 4.8
+            </div>
+            <div class="card-details">
+              <div class="card-texts">
+                <h3 class="card-title">Banff, Canada</h3>
+                <p class="card-subtitle">Majestic Lakes &amp; Mountains</p>
+              </div>
+              <div class="card-price-tag">$699</div>
+            </div>
           </article>
-          <article class="offer violet">
-            <div class="offer-label">HOTELS</div>
-            <h3>Stay a little<br />longer.</h3>
-            <p>Use code <b>STAYMORE</b> for 35% off<br />on stays you'll love.</p>
-            <button data-service="hotels">Find a stay <span>→</span></button>
-            <div class="hotel-icon">⌂</div>
+
+          <!-- CARD 2: MALDIVES -->
+          <article class="nature-card" data-destination="Maldives" data-type="international" data-category="beach">
+            <img 
+              class="card-photo" 
+              src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80" 
+              alt="Maldives pristine tropical paradise overwater villas" 
+              loading="lazy"
+            />
+            <div class="card-gradient-overlay"></div>
+            <div class="card-badge-rating">
+              <span class="star">★</span> 4.7
+            </div>
+            <div class="card-details">
+              <div class="card-texts">
+                <h3 class="card-title">Maldives</h3>
+                <p class="card-subtitle">Tropical Paradise</p>
+              </div>
+              <div class="card-price-tag">$899</div>
+            </div>
           </article>
-          <article class="offer sand">
-            <div class="offer-label">WEEKEND ESCAPES</div>
-            <h3>Take the<br />scenic route.</h3>
-            <p>Use code <b>WELCOME500</b> for<br />handpicked getaways.</p>
-            <button data-service="holidays">Discover trips <span>→</span></button>
-            <div class="sun">☀</div>
+
+          <!-- CARD 3: KYOTO, JAPAN -->
+          <article class="nature-card" data-destination="Kyoto" data-type="international" data-category="culture">
+            <img 
+              class="card-photo" 
+              src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80" 
+              alt="Kyoto, Japan timeless culture ancient pagodas with cherry blossoms" 
+              loading="lazy"
+            />
+            <div class="card-gradient-overlay"></div>
+            <div class="card-badge-rating">
+              <span class="star">★</span> 4.9
+            </div>
+            <div class="card-details">
+              <div class="card-texts">
+                <h3 class="card-title">Kyoto, Japan</h3>
+                <p class="card-subtitle">Timeless Culture</p>
+              </div>
+              <div class="card-price-tag">$799</div>
+            </div>
+          </article>
+
+          <!-- CARD 4: ICELAND -->
+          <article class="nature-card" data-destination="Iceland" data-type="international" data-category="adventure">
+            <img 
+              class="card-photo" 
+              src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=800&q=80" 
+              alt="Iceland land of fire and ice northern lights aurora borealis" 
+              loading="lazy"
+            />
+            <div class="card-gradient-overlay"></div>
+            <div class="card-badge-rating">
+              <span class="star">★</span> 4.6
+            </div>
+            <div class="card-details">
+              <div class="card-texts">
+                <h3 class="card-title">Iceland</h3>
+                <p class="card-subtitle">Land of Fire &amp; Ice</p>
+              </div>
+              <div class="card-price-tag">$749</div>
+            </div>
           </article>
         </div>
-      </section>
 
-      <section class="destinations" id="trips">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow orange">FEEL THE WORLD</p>
-            <h2>Popular right now</h2>
-          </div>
-          <div class="destination-head-right">
-            <div class="destination-filters">
-              <button type="button" class="dest-filter-btn active" data-dest-filter="all">All Trips</button>
-              <button type="button" class="dest-filter-btn" data-dest-filter="national">🇮🇳 Domestic</button>
-              <button type="button" class="dest-filter-btn" data-dest-filter="international">✈️ International</button>
-            </div>
-            <div class="arrows">
-              <button type="button" data-destination-direction="previous">←</button>
-              <button type="button" data-destination-direction="next">→</button>
-            </div>
-          </div>
-        </div>
-        <div class="destination-grid">
-          <article class="destination beach" data-destination="Maldives" data-type="international">
-            <span class="pill">BEACHES</span>
-            <div>
-              <h3>Maldives</h3>
-              <p>From ₹42,999 / person</p>
-            </div>
-          </article>
-          <article class="destination cityscape" data-destination="Dubai" data-type="international">
-            <span class="pill">CITY BREAK</span>
-            <div>
-              <h3>Dubai</h3>
-              <p>From ₹28,499 / person</p>
-            </div>
-          </article>
-          <article class="destination mountain" data-destination="Manali" data-type="national">
-            <span class="pill">MOUNTAINS</span>
-            <div>
-              <h3>Manali</h3>
-              <p>From ₹9,999 / person</p>
-            </div>
-          </article>
-          <article class="destination ocean" data-destination="Bali" data-type="international">
-            <span class="pill">ISLANDS</span>
-            <div>
-              <h3>Bali</h3>
-              <p>From ₹32,999 / person</p>
-            </div>
-          </article>
-          <article class="destination goa" data-destination="Goa" data-type="national">
-            <span class="pill">SUN & SAND</span>
-            <div>
-              <h3>Goa</h3>
-              <p>From ₹12,499 / person</p>
-            </div>
-          </article>
-          <article class="destination paris" data-destination="Paris" data-type="international">
-            <span class="pill">ROMANCE</span>
-            <div>
-              <h3>Paris</h3>
-              <p>From ₹58,999 / person</p>
-            </div>
-          </article>
-          <article class="destination singapore" data-destination="Singapore" data-type="international">
-            <span class="pill">THEME PARKS</span>
-            <div>
-              <h3>Singapore</h3>
-              <p>From ₹36,500 / person</p>
-            </div>
-          </article>
-          <article class="destination kashmir" data-destination="Kashmir" data-type="national">
-            <span class="pill">PARADISE</span>
-            <div>
-              <h3>Kashmir</h3>
-              <p>From ₹14,999 / person</p>
-            </div>
-          </article>
+        <!-- CATEGORY EXPLORER ROW (Circular Icons) -->
+        <div class="category-explorer-row" id="tours">
+          <button class="cat-pill active" data-category="all" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <span class="cat-label">All Trips</span>
+          </button>
+
+          <button class="cat-pill" data-category="adventure" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+            </span>
+            <span class="cat-label">Adventure</span>
+          </button>
+
+          <button class="cat-pill" data-category="beach" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8c0-2.76-2.46-5-5.5-5S2 5.24 2 8h11Z"/><path d="M13 7.14A5.82 5.82 0 0 1 16.5 6c3.04 0 5.5 2.24 5.5 5h-7"/><path d="M5.8 14a6.76 6.76 0 0 0-2.8 1.4A2 2 0 0 0 2 17.5V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-1.5a2 2 0 0 0-1-1.74 6.76 6.76 0 0 0-2.8-1.4"/><path d="M12 12v9"/></svg>
+            </span>
+            <span class="cat-label">Beach</span>
+          </button>
+
+          <button class="cat-pill" data-category="nature" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            </span>
+            <span class="cat-label">Nature</span>
+          </button>
+
+          <button class="cat-pill" data-category="culture" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="21" x2="22" y2="21"/><line x1="4" y1="9" x2="20" y2="9"/><path d="M6 9v12"/><path d="M10 9v12"/><path d="M14 9v12"/><path d="M18 9v12"/><polygon points="12 3 2 9 22 9 12 3"/></svg>
+            </span>
+            <span class="cat-label">Culture</span>
+          </button>
+
+          <button class="cat-pill" data-category="honeymoon" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            </span>
+            <span class="cat-label">Honeymoon</span>
+          </button>
+
+          <button class="cat-pill" data-category="family" type="button">
+            <span class="cat-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="cat-label">Family</span>
+          </button>
         </div>
       </section>
 
-      <section class="app-banner">
-        <div class="app-phone">
-          <div class="screen">
-            <span class="mini-brand"><b>Trip</b>wise</span>
-            <h4>Good morning,<br />Traveller!</h4>
-            <div class="mini-card">Your next escape<br /><b>starts today</b></div>
-            <div class="mini-nav">⌂　⌕　♡　☻</div>
+      <!-- TRAVEL STORIES & GUIDES SECTION -->
+      <section class="travel-stories-section" id="stories">
+        <div class="stories-grid">
+          <!-- Left Callout Box -->
+          <div class="stories-callout-card">
+            <p class="callout-eyebrow">Need Inspiration?</p>
+            <h2 class="callout-title">Travel Stories &amp; Guides</h2>
+            <p class="callout-desc">Get travel tips, destination guides, and inspiring stories from around the world.</p>
+            <button class="stories-cta-btn" id="stories-read-btn" type="button">
+              <span>Read Travel Stories</span>
+              <span class="arrow">→</span>
+            </button>
+          </div>
+
+          <!-- Guide Card 1 -->
+          <article class="story-card" data-story-id="europe-gems">
+            <div class="story-img-wrap">
+              <img 
+                src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" 
+                alt="10 Hidden Gems in Europe scenic lake village" 
+                loading="lazy"
+              />
+            </div>
+            <div class="story-content">
+              <h3>10 Hidden Gems in Europe</h3>
+              <div class="story-meta">
+                <span>⏱ 5 min read</span>
+                <span class="bullet">·</span>
+                <span>Alpine &amp; Coastal Escapes</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Guide Card 2 -->
+          <article class="story-card" data-story-id="packing-essentials">
+            <div class="story-img-wrap">
+              <img 
+                src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=800&q=80" 
+                alt="Packing Essentials for Every Trip hiker overlooking pristine fjord" 
+                loading="lazy"
+              />
+            </div>
+            <div class="story-content">
+              <h3>Packing Essentials for Every Trip</h3>
+              <div class="story-meta">
+                <span>⏱ 4 min read</span>
+                <span class="bullet">·</span>
+                <span>Pro Hiker Checklist</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SPECIAL OFFER FOREST GREEN BANNER -->
+      <section class="special-offer-section" id="special-offers">
+        <div class="offer-banner-container">
+          <!-- Left Scenic Cutout Photo -->
+          <div class="offer-scenic-cutout">
+            <img 
+              src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80" 
+              alt="Majestic mountain lake with reflection and pine forests" 
+              loading="lazy"
+            />
+            <div class="cutout-feather-overlay"></div>
+          </div>
+
+          <!-- Right Content Area -->
+          <div class="offer-content">
+            <div class="offer-pill-tag">
+              <span>SPECIAL OFFER</span>
+              <span class="leaf-icon">🍃</span>
+            </div>
+            <h2 class="offer-headline">
+              Your Next Adventure<br />Starts Here
+            </h2>
+            <p class="offer-subtext">
+              Exclusive packages. Flexible bookings.<br />
+              Memories that last a lifetime.
+            </p>
+            <div class="offer-actions">
+              <button class="offer-discover-btn" id="offer-discover-packages-btn" type="button">
+                <span>Discover Packages</span>
+                <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Botanical Floral Accent Illustration (Bottom-Right) -->
+          <div class="offer-floral-accent" aria-hidden="true">
+            <svg width="180" height="150" viewBox="0 0 180 150" fill="none">
+              <!-- Soft Orange & Golden Botanical Bloom -->
+              <g transform="translate(40, 20)">
+                <path d="M40 50C20 40 0 45 5 70C15 90 40 85 45 60C45 55 42 52 40 50Z" fill="#e2741d" fill-opacity="0.85"/>
+                <path d="M45 50C65 35 85 42 80 65C70 85 50 82 45 60Z" fill="#f28522" fill-opacity="0.9"/>
+                <path d="M45 45C45 20 60 5 75 20C90 35 75 55 50 50Z" fill="#ffaa47" fill-opacity="0.95"/>
+                <path d="M40 45C35 20 20 5 5 20C-10 35 15 55 40 50Z" fill="#f28522" fill-opacity="0.85"/>
+                <circle cx="45" cy="50" r="8" fill="#582a06"/>
+                <!-- Green leaves -->
+                <path d="M20 75C-5 85 -5 105 15 110C35 115 35 95 20 75Z" fill="#3b7a66"/>
+                <path d="M65 75C90 85 90 105 70 110C50 115 50 95 65 75Z" fill="#2d5c50"/>
+              </g>
+            </svg>
           </div>
         </div>
-        <div>
-          <p class="eyebrow orange">THE TRIPWISE APP</p>
-          <h2>Everything you need.<br />Right in your pocket.</h2>
-          <p>Plan, book and manage your trips on the go.<br />Plus, get app-only prices and early access to sales.</p>
-          <div class="store-buttons">
-            <button type="button" data-app-store="Apple App Store"> <span>Download on the<br /><b>App Store</b></span></button>
-            <button type="button" data-app-store="Google Play">▶ <span>GET IT ON<br /><b>Google Play</b></span></button>
+      </section>
+
+      <!-- STATS & COMMUNITY BAR -->
+      <section class="stats-community-bar" id="about">
+        <div class="stats-container">
+          <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true">🏔️</span>
+            <div class="stat-text">
+              <strong class="stat-number">100+</strong>
+              <span class="stat-label">Destinations</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true">👥</span>
+            <div class="stat-text">
+              <strong class="stat-number">50K+</strong>
+              <span class="stat-label">Happy Travelers</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true">⭐</span>
+            <div class="stat-text">
+              <strong class="stat-number">4.8★</strong>
+              <span class="stat-label">Average Rating</span>
+            </div>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-icon" aria-hidden="true">🕒</span>
+            <div class="stat-text">
+              <strong class="stat-number">24/7</strong>
+              <span class="stat-label">Support</span>
+            </div>
+          </div>
+
+          <div class="social-follow-wrap">
+            <span class="follow-label">Follow Us</span>
+            <div class="social-icons-group">
+              <a href="#" class="social-icon" aria-label="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" class="social-icon" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="social-icon" aria-label="Twitter / X">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" class="social-icon" aria-label="YouTube">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#faf9f5"/></svg>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="dots">✦<br />·<br />✦</div>
       </section>
     </main>
 
-    <footer id="help">
-      <a class="brand" href="#"><span>Trip</span>wise</a>
-      <p>Made for the moments that matter.</p>
-      <div>© 2026 Tripwise · Made with care</div>
+    <!-- MODERN MULTI-COLUMN FOOTER -->
+    <footer class="pomaii-footer" id="help">
+      <div class="footer-container">
+        <!-- Brand Col -->
+        <div class="footer-col brand-col">
+          <div class="brand-footer">
+            <span class="brand-logo-mark" aria-hidden="true">
+              <svg width="30" height="30" viewBox="0 0 36 36" fill="none">
+                <rect width="36" height="36" rx="18" fill="#1b3c34"/>
+                <path d="M10 24L16 16L20 21L23 18L27 24H10Z" fill="#faf9f5"/>
+                <circle cx="23" cy="13" r="3" fill="#f28522"/>
+              </svg>
+            </span>
+            <div class="brand-text-group">
+              <span class="brand-name">Pomaii</span>
+              <span class="brand-tagline">Explore. Dream. Discover.</span>
+            </div>
+          </div>
+          <p class="footer-about-text">
+            We bring you closer to the world's most amazing places with unforgettable travel experiences.
+          </p>
+        </div>
+
+        <!-- Col 2: Company -->
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Support -->
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Terms &amp; Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Top Destinations -->
+        <div class="footer-col">
+          <h4>Top Destinations</h4>
+          <ul>
+            <li><a href="#" data-footer-dest="Bali">Bali, Indonesia</a></li>
+            <li><a href="#" data-footer-dest="Switzerland">Switzerland</a></li>
+            <li><a href="#" data-footer-dest="Thailand">Thailand</a></li>
+            <li><a href="#" data-footer-dest="New Zealand">New Zealand</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 5: Newsletter -->
+        <div class="footer-col newsletter-col">
+          <h4>Newsletter</h4>
+          <p>Subscribe for travel inspiration and exclusive deals.</p>
+          <form class="newsletter-form" id="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed! Check your inbox for exclusive deals ✈️');">
+            <input type="email" placeholder="Enter your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Pomaii. All rights reserved.</p>
+      </div>
     </footer>
 
-    <!-- AUTH MODAL -->
+    <!-- ============================================================= -->
+    <!-- PRESERVED FUNCTIONAL MODALS (100% WORKING STATE)               -->
+    <!-- ============================================================= -->
+
+    <!-- 1. AUTH MODAL -->
     <div class="modal" id="auth-modal" aria-hidden="true">
       <div class="modal-card auth-card">
         <button class="modal-close" data-close-modal="auth-modal" type="button">×</button>
@@ -378,7 +713,7 @@
           <span>OR</span>
         </div>
 
-        <!-- Auth Method Selector (Phone vs Email) -->
+        <!-- Auth Method Selector -->
         <div class="auth-type-toggle">
           <button class="auth-toggle-btn active" id="toggle-phone-btn" type="button">📱 Phone Number</button>
           <button class="auth-toggle-btn" id="toggle-email-btn" type="button">✉️ Email Address</button>
@@ -387,7 +722,7 @@
         <form id="auth-form">
           <label id="name-field" class="hidden">Full name<input id="auth-name" type="text" placeholder="Your full name" /></label>
           
-          <!-- PHONE LOGIN FIELD -->
+          <!-- PHONE LOGIN -->
           <div id="phone-auth-container">
             <label>Mobile Number
               <div class="phone-input-group">
@@ -403,7 +738,7 @@
             </div>
           </div>
 
-          <!-- EMAIL LOGIN FIELDS -->
+          <!-- EMAIL LOGIN -->
           <div id="email-auth-container" class="hidden">
             <label>Email address<input id="auth-email" type="email" placeholder="you@example.com" /></label>
             <label id="password-field">Password<input id="auth-password" type="password" placeholder="Minimum 6 characters" minlength="6" /></label>
@@ -416,7 +751,7 @@
       </div>
     </div>
 
-    <!-- RESULTS & FILTERING MODAL -->
+    <!-- 2. SEARCH RESULTS & FILTERING MODAL -->
     <div class="modal" id="results-modal" aria-hidden="true">
       <div class="modal-card results-card wide-modal">
         <button class="modal-close" data-close-modal="results-modal" type="button">×</button>
@@ -440,7 +775,7 @@
             <h3>Filters</h3>
             
             <div class="filter-group">
-              <label>Max Price: <b id="price-limit-val">₹15,000</b></label>
+              <label>Max Price: <b id="price-limit-val">₹50,000</b></label>
               <input type="range" id="price-filter" min="500" max="50000" step="500" value="50000" />
             </div>
 
@@ -471,7 +806,7 @@
       </div>
     </div>
 
-    <!-- SEAT / ROOM SELECTION MODAL -->
+    <!-- 3. SEAT / ROOM SELECTION MODAL -->
     <div class="modal" id="seat-modal" aria-hidden="true">
       <div class="modal-card seat-card">
         <button class="modal-close" data-close-modal="seat-modal" type="button">×</button>
@@ -496,12 +831,12 @@
       </div>
     </div>
 
-    <!-- BOOKING DETAILS & PAYMENT CHECKOUT MODAL -->
+    <!-- 4. BOOKING DETAILS & PAYMENT CHECKOUT MODAL -->
     <div class="modal" id="booking-modal" aria-hidden="true">
       <div class="modal-card booking-card">
         <button class="modal-close" data-close-modal="booking-modal" type="button">×</button>
-        <p class="eyebrow orange">CHECKOUT & PAYMENT</p>
-        <h2>Passenger & Payment Details</h2>
+        <p class="eyebrow orange">CHECKOUT &amp; PAYMENT</p>
+        <h2>Passenger &amp; Payment Details</h2>
         <p id="selected-flight-label"></p>
 
         <form id="booking-form">
@@ -521,7 +856,7 @@
 
               <div class="pay-details-box" id="upi-box">
                 <div class="qr-placeholder">
-                  <div class="fake-qr">📱 SCAN & PAY</div>
+                  <div class="fake-qr">📱 SCAN &amp; PAY</div>
                   <p>Scan with any UPI App or click "Pay Now" for instant demo payment authorization.</p>
                 </div>
               </div>
@@ -539,7 +874,7 @@
               <h3>Price Breakdown</h3>
               <div class="price-summary-box">
                 <div class="summary-row"><span>Base Fare</span> <strong id="summary-base">₹0</strong></div>
-                <div class="summary-row"><span>Taxes & GST (18%)</span> <strong id="summary-tax">₹0</strong></div>
+                <div class="summary-row"><span>Taxes &amp; GST (18%)</span> <strong id="summary-tax">₹0</strong></div>
                 <div class="summary-row"><span>Convenience Fee</span> <strong>₹150</strong></div>
                 <div class="summary-row green hidden" id="summary-discount-row"><span>Promo Discount</span> <strong id="summary-discount">-₹0</strong></div>
                 <hr />
@@ -548,33 +883,33 @@
                 <div class="coupon-section">
                   <label>Apply Coupon Code</label>
                   <div class="coupon-input-group">
-                    <input type="text" id="coupon-code-input" placeholder="e.g. GOFIRST" />
+                    <input type="text" id="coupon-code-input" placeholder="e.g. WELCOME500" />
                     <button type="button" id="apply-coupon-btn">Apply</button>
                   </div>
                   <small id="coupon-status-msg"></small>
                 </div>
               </div>
 
-              <button class="primary-button pay-now-btn" id="pay-submit-btn" type="submit">Pay & Confirm Booking 🔒</button>
+              <button class="primary-button pay-now-btn" id="pay-submit-btn" type="submit">Pay &amp; Confirm Booking 🔒</button>
             </div>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- PRINTABLE E-TICKET MODAL -->
+    <!-- 5. PRINTABLE E-TICKET MODAL -->
     <div class="modal" id="ticket-modal" aria-hidden="true">
       <div class="modal-card ticket-card">
         <button class="modal-close" data-close-modal="ticket-modal" type="button">×</button>
         
         <div class="ticket-wrapper" id="ticket-printable-area">
           <div class="ticket-header">
-            <div class="ticket-brand"><span>Trip</span>wise</div>
+            <div class="ticket-brand"><span>Pomaii</span> Travel</div>
             <div class="ticket-status-badge">CONFIRMED E-TICKET</div>
           </div>
 
           <div class="ticket-pnr-bar">
-            <div>PNR: <b id="ticket-pnr">TPW9X82F</b></div>
+            <div>PNR: <b id="ticket-pnr">POM9X82F</b></div>
             <div>Booking Ref: <b id="ticket-id">BK-9182</b></div>
             <div>Status: <span class="green-text">CONFIRMED</span></div>
           </div>
@@ -620,7 +955,9 @@
       </div>
     </div>
 
+    <!-- TOAST NOTIFICATIONS -->
     <div class="toast" id="toast" role="status"></div>
+
     <script src="script.js"></script>
   </body>
 </html>
