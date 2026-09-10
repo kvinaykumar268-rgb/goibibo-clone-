@@ -728,9 +728,14 @@ h2 {
   border-left-color: #2dd4bf !important;
 }
 
-/* SLIDE 4: BRIGHT SUNRISE SPECIALS (LIGHT, ENERGETIC & NON-DARK) */
+/* SLIDE 4: BRIGHT SUNRISE GETAWAYS (LIGHT, ENERGETIC & NON-DARK) */
+.slide-sunrise {
+  text-align: left;
+}
+
 .slide-sunrise h1 {
   color: #0c241c;
+  text-align: left;
 }
 
 .slide-sunrise h1 em {
@@ -739,11 +744,13 @@ h2 {
 
 .slide-sunrise .hero-copy {
   color: #334155;
+  text-align: left;
 }
 
 .slide-sunrise .eyebrow.amber-dark {
   color: #c2410c;
   font-weight: 800;
+  text-align: left;
 }
 
 .sunrise-glow-orb {
@@ -780,71 +787,6 @@ h2 {
   transform: rotate(-16deg);
   pointer-events: none;
   animation: glowFloatOne 10s ease-in-out infinite alternate;
-}
-
-.sunrise-badge-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 2;
-}
-
-.sunrise-badge-tag {
-  font-size: 9.5px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #c2410c;
-  background: rgba(251, 146, 60, 0.2);
-  border: 1px solid rgba(234, 88, 12, 0.35);
-  padding: 4px 10px;
-  border-radius: 20px;
-}
-
-.sunrise-guarantee-pill {
-  font-size: 11px;
-  color: #047857;
-  font-weight: 700;
-}
-
-.sunrise-actions-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 18px;
-  position: relative;
-  z-index: 2;
-}
-
-.sunrise-perk-chip {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(234, 88, 12, 0.3);
-  border-radius: 24px;
-  padding: 8px 14px;
-  color: #1e293b;
-  font-size: 12px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.12);
-}
-
-.sunrise-cta-btn {
-  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
-  color: #ffffff;
-  border: none;
-  border-radius: 24px;
-  padding: 10px 22px;
-  font-size: 12.5px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(234, 88, 12, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.sunrise-cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(234, 88, 12, 0.5);
 }
 
 .sunrise-stats span {
