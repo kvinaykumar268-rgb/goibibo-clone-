@@ -910,31 +910,21 @@ function initHeroCarousel() {
     });
   }
 
-  // Slide 3: 1-Click Resort Promo Code Copy
-  if (resortCouponBtn) {
-    resortCouponBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const code = "PARADISE45";
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(code).catch(() => {});
-      }
-      showToast(`Promo code ${code} copied! Flat 45% off on Island Resorts.`);
-    });
-  }
-
-  // Slide 3: Explore Island Resorts CTA
-  if (resortCtaBtn) {
-    resortCtaBtn.addEventListener("click", () => {
-      // Switch to Hotels tab
-      const hotelTab = document.querySelector('.tab[data-panel="hotels"]');
-      if (hotelTab) {
-        hotelTab.click();
+  // Slide 3: Holiday Destination Chips Click
+  const holidayChips = document.querySelectorAll(".holiday-chip");
+  holidayChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const dest = chip.getAttribute("data-dest") || "Manali";
+      
+      // Switch to Holidays tab
+      const holidaysTab = document.querySelector('.tab[data-panel="holidays"]');
+      if (holidaysTab) {
+        holidaysTab.click();
       }
 
-      // Pre-fill location
-      const hotelCity = document.querySelector("#hotel-city");
-      if (hotelCity) {
-        hotelCity.value = "Maldives";
+      const searchToInput = document.querySelector("#search-to");
+      if (searchToInput) {
+        searchToInput.value = dest;
       }
 
       const searchWrap = document.querySelector(".search-wrap");
@@ -944,7 +934,27 @@ function initHeroCarousel() {
         setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
       }
 
-      showToast(`Luxury Maldives Resorts loaded! Click "Search Hotels".`);
+      showToast(`Showing handcrafted holiday packages for ${dest}!`);
+    });
+  });
+
+  // Slide 3: Explore Holidays CTA
+  const holidayExploreBtn = document.querySelector("#holiday-explore-cta");
+  if (holidayExploreBtn) {
+    holidayExploreBtn.addEventListener("click", () => {
+      const holidaysTab = document.querySelector('.tab[data-panel="holidays"]');
+      if (holidaysTab) {
+        holidaysTab.click();
+      }
+
+      const searchWrap = document.querySelector(".search-wrap");
+      if (searchWrap) {
+        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchWrap.classList.add("highlight-pulse");
+        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+      }
+
+      showToast(`Explore 150+ Handcrafted Holiday Packages!`);
     });
   }
 
