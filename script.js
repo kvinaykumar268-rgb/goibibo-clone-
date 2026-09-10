@@ -781,4 +781,124 @@ function initTheme() {
 initHeroTextRotator();
 initTheme();
 
+// HERO SPONSORED AD ROTATOR & ACTIONS
+const heroAds = [
+  {
+    icon: "✈️",
+    sponsor: "Emirates Special",
+    title: "Fly to Dubai from ₹14,999",
+    desc: "Flat ₹2,500 off on round-trips + Free Visa Support.",
+    code: "FLYTRIP",
+    fromCity: "New Delhi",
+    toCity: "Dubai"
+  },
+  {
+    icon: "🏝️",
+    sponsor: "Taj Resorts & Hotels",
+    title: "Maldives Luxury Escape 35% Off",
+    desc: "Save up to ₹2,000 on overwater villas with breakfast.",
+    code: "STAYMORE",
+    fromCity: "Mumbai",
+    toCity: "Maldives"
+  },
+  {
+    icon: "🌴",
+    sponsor: "IndiGo Getaway",
+    title: "Goa Beach Flights @ ₹3,499",
+    desc: "Exclusive low fares for weekend escapes this season.",
+    code: "GOFIRST",
+    fromCity: "New Delhi",
+    toCity: "Goa"
+  }
+];
+
+function initHeroAdCard() {
+  const adCard = document.querySelector("#hero-ad-card");
+  if (!adCard) return;
+
+  const closeBtn = document.querySelector("#hero-ad-close-btn");
+  const couponBtn = document.querySelector("#hero-ad-coupon-btn");
+  const ctaBtn = document.querySelector("#hero-ad-cta-btn");
+  const iconEl = document.querySelector("#hero-ad-icon");
+  const sponsorEl = document.querySelector("#hero-ad-sponsor");
+  const titleEl = document.querySelector("#hero-ad-title");
+  const descEl = document.querySelector("#hero-ad-desc");
+  const codeEl = document.querySelector("#hero-ad-code");
+  const counterEl = document.querySelector("#hero-ad-counter");
+
+  let currentAdIndex = 0;
+  let adInterval = null;
+
+  function renderAd(index) {
+    const ad = heroAds[index];
+    if (!ad) return;
+
+    adCard.classList.add("ad-updating");
+    setTimeout(() => {
+      if (iconEl) iconEl.textContent = ad.icon;
+      if (sponsorEl) sponsorEl.textContent = ad.sponsor;
+      if (titleEl) titleEl.textContent = ad.title;
+      if (descEl) descEl.textContent = ad.desc;
+      if (codeEl) codeEl.textContent = ad.code;
+      if (counterEl) counterEl.textContent = `Ad ${index + 1} of ${heroAds.length}`;
+      adCard.classList.remove("ad-updating");
+    }, 200);
+  }
+
+  // Auto-rotate ads every 7 seconds
+  adInterval = setInterval(() => {
+    currentAdIndex = (currentAdIndex + 1) % heroAds.length;
+    renderAd(currentAdIndex);
+  }, 7000);
+
+  // Close / dismiss ad button
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      clearInterval(adInterval);
+      adCard.classList.add("ad-dismissed");
+      showToast("Sponsored ad dismissed.");
+    });
+  }
+
+  // One-click coupon code copy
+  if (couponBtn) {
+    couponBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const code = codeEl ? codeEl.textContent.trim() : "FLYTRIP";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
+      showToast(`Coupon code ${code} copied! Apply at booking.`);
+    });
+  }
+
+  // CTA Click: auto-fill destination and smooth scroll to search
+  if (ctaBtn) {
+    ctaBtn.addEventListener("click", () => {
+      const ad = heroAds[currentAdIndex];
+      const fromInput = document.querySelector("#flight-from");
+      const toInput = document.querySelector("#flight-to");
+
+      if (fromInput && ad.fromCity) {
+        fromInput.value = ad.fromCity;
+      }
+      if (toInput && ad.toCity) {
+        toInput.value = ad.toCity;
+      }
+
+      const searchWrap = document.querySelector(".search-wrap");
+      if (searchWrap) {
+        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchWrap.classList.add("highlight-pulse");
+        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+      }
+
+      showToast(`Special offer loaded for ${ad.toCity}! Click "Search Flights".`);
+    });
+  }
+}
+
+initHeroAdCard();
+
 
