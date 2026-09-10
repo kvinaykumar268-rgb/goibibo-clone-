@@ -371,13 +371,13 @@ nav a {
 /* HIGH-AESTHETIC FLYING JET & CONTRAILS */
 .hero-airplane-container {
   position: absolute;
-  top: 38%;
+  top: 32%;
   left: 0;
-  width: 130px;
-  height: 65px;
+  width: 175px;
+  height: 88px;
   z-index: 1;
   pointer-events: none;
-  animation: airplaneFlightLoop 20s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation: airplaneFlightLoop 12s cubic-bezier(0.35, 0.1, 0.25, 1) infinite;
   will-change: transform, opacity;
 }
 
@@ -385,7 +385,7 @@ nav a {
   position: relative;
   width: 100%;
   height: 100%;
-  animation: airplaneTurbulence 3.5s ease-in-out infinite alternate;
+  animation: airplaneTurbulence 4s ease-in-out infinite alternate;
 }
 
 .hero-airplane-svg {
@@ -397,26 +397,29 @@ nav a {
 /* JET ENGINE VAPOR CONTRAILS */
 .plane-vapor-trail {
   position: absolute;
-  height: 2.5px;
-  right: calc(100% - 58px);
+  height: 3px;
+  right: calc(100% - 72px);
   border-radius: 999px;
   pointer-events: none;
   transform-origin: right center;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.75) 0%, rgba(223, 243, 67, 0.35) 25%, rgba(255, 255, 255, 0.08) 75%, transparent 100%);
-  filter: blur(0.7px);
-  animation: vaporPulse 2s ease-in-out infinite alternate;
+  filter: blur(1px);
+  will-change: transform, opacity;
 }
 
 .vapor-top {
-  top: 19.5px;
-  width: 180px;
-  opacity: 0.65;
+  top: 28px;
+  width: 240px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9) 0%, rgba(223, 243, 67, 0.45) 20%, rgba(255, 255, 255, 0.12) 65%, transparent 100%);
+  opacity: 0.8;
+  animation: vaporPulse 1.8s ease-in-out infinite alternate;
 }
 
 .vapor-bottom {
-  top: 43px;
-  width: 220px;
-  opacity: 0.9;
+  top: 56px;
+  width: 290px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.95) 0%, rgba(250, 103, 75, 0.5) 15%, rgba(223, 243, 67, 0.25) 55%, transparent 100%);
+  opacity: 0.95;
+  animation: vaporPulse 2.2s ease-in-out infinite alternate;
 }
 
 /* NAVIGATION & STROBE LIGHTS */
@@ -911,33 +914,36 @@ h2 {
   0% {
     transform: translateY(0) rotate(0deg);
   }
-  50% {
-    transform: translateY(-4px) rotate(-1deg);
+  35% {
+    transform: translateY(-3.5px) rotate(-0.8deg);
+  }
+  70% {
+    transform: translateY(2.5px) rotate(0.6deg);
   }
   100% {
-    transform: translateY(3px) rotate(1deg);
+    transform: translateY(-1.5px) rotate(-0.3deg);
   }
 }
 
 @keyframes airplaneFlightLoop {
   0% {
-    transform: translate3d(-170px, 90px, 0) rotate(-14deg) scale(0.72);
+    transform: translate3d(-200px, 110px, 0) rotate(-14deg) scale(0.82);
     opacity: 0;
   }
   4% {
-    opacity: 0.92;
+    opacity: 0.96;
   }
-  30% {
-    transform: translate3d(28vw, 20px, 0) rotate(-16deg) scale(0.85);
+  32% {
+    transform: translate3d(28vw, 22px, 0) rotate(-15deg) scale(0.92);
   }
-  65% {
-    transform: translate3d(64vw, -55px, 0) rotate(-12deg) scale(1);
+  68% {
+    transform: translate3d(62vw, -55px, 0) rotate(-13deg) scale(1.02);
   }
-  92% {
-    opacity: 0.92;
+  94% {
+    opacity: 0.96;
   }
   100% {
-    transform: translate3d(106vw, -165px, 0) rotate(-15deg) scale(1.15);
+    transform: translate3d(108vw, -155px, 0) rotate(-14deg) scale(1.15);
     opacity: 0;
   }
 }

@@ -61,91 +61,169 @@
           <div class="hero-slide slide-main" data-slide="0">
             <div class="glow glow-one"></div>
             <div class="glow glow-two"></div>
-            <div class="hero-airplane-container" aria-hidden="true" title="Tripwise Express">
+            <div class="hero-airplane-container" aria-hidden="true" title="Tripwise Dreamliner">
               <div class="hero-airplane-motion">
                 <div class="plane-vapor-trail vapor-top"></div>
                 <div class="plane-vapor-trail vapor-bottom"></div>
-                <svg class="hero-airplane-svg" viewBox="0 0 140 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="hero-airplane-svg" viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
-                    <linearGradient id="fuselageGrad" x1="0%" y1="0%" x2="100%" y2="20%">
-                      <stop offset="0%" stop-color="#cfebd9" />
-                      <stop offset="35%" stop-color="#ffffff" />
-                      <stop offset="85%" stop-color="#f5fbf8" />
-                      <stop offset="100%" stop-color="#d8ece2" />
+                    <linearGradient id="fuselageBodyGrad" x1="0%" y1="0%" x2="100%" y2="25%">
+                      <stop offset="0%" stop-color="#bfe0d2" />
+                      <stop offset="25%" stop-color="#e8f6f0" />
+                      <stop offset="50%" stop-color="#ffffff" />
+                      <stop offset="80%" stop-color="#f2faf6" />
+                      <stop offset="100%" stop-color="#c6e4d7" />
                     </linearGradient>
-                    <linearGradient id="farWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#b6d5c6" />
-                      <stop offset="100%" stop-color="#9bbbb0" />
+
+                    <linearGradient id="fuselageBellyShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+                      <stop offset="70%" stop-color="#1b4237" stop-opacity="0.35" />
+                      <stop offset="100%" stop-color="#0e2a22" stop-opacity="0.75" />
                     </linearGradient>
-                    <linearGradient id="nearWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+
+                    <linearGradient id="nearWingFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stop-color="#ffffff" />
-                      <stop offset="55%" stop-color="#d9ede3" />
-                      <stop offset="100%" stop-color="#a9cbbe" />
+                      <stop offset="45%" stop-color="#d8ebe1" />
+                      <stop offset="85%" stop-color="#a8cebd" />
+                      <stop offset="100%" stop-color="#7ea996" />
                     </linearGradient>
-                    <linearGradient id="engineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#24493e" />
-                      <stop offset="70%" stop-color="#ffffff" />
-                      <stop offset="100%" stop-color="#d5ece1" />
+
+                    <linearGradient id="farWingFaceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#c4ded2" />
+                      <stop offset="60%" stop-color="#9fc1b2" />
+                      <stop offset="100%" stop-color="#7b9e90" />
                     </linearGradient>
-                    <filter id="planeGlowShadow" x="-30%" y="-30%" width="160%" height="160%">
-                      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="rgba(8, 30, 24, 0.45)" />
+
+                    <linearGradient id="engineCowlGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#183e33" />
+                      <stop offset="35%" stop-color="#558776" />
+                      <stop offset="65%" stop-color="#ffffff" />
+                      <stop offset="90%" stop-color="#c8e4d8" />
+                      <stop offset="100%" stop-color="#1d4439" />
+                    </linearGradient>
+
+                    <linearGradient id="engineIntakeLip" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#f0faf5" />
+                      <stop offset="50%" stop-color="#739a8c" />
+                      <stop offset="100%" stop-color="#1a3b31" />
+                    </linearGradient>
+
+                    <radialGradient id="engineExhaustThrust" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#dff343" />
+                      <stop offset="55%" stop-color="#fa674b" stop-opacity="0.85" />
+                      <stop offset="100%" stop-color="#fa674b" stop-opacity="0" />
+                    </radialGradient>
+
+                    <linearGradient id="cockpitVisorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#0a241d" />
+                      <stop offset="50%" stop-color="#144236" />
+                      <stop offset="80%" stop-color="#34d399" />
+                      <stop offset="100%" stop-color="#0a241d" />
+                    </linearGradient>
+
+                    <linearGradient id="tripwiseLiveryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#fa674b" />
+                      <stop offset="60%" stop-color="#e05338" />
+                      <stop offset="100%" stop-color="#dff343" />
+                    </linearGradient>
+
+                    <filter id="jetAeroShadow" x="-25%" y="-25%" width="150%" height="160%">
+                      <feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="rgba(7, 26, 21, 0.48)" />
                     </filter>
                   </defs>
 
-                  <g filter="url(#planeGlowShadow)">
-                    <!-- Far Wing -->
-                    <path d="M 68 31 L 43 7 L 52 7 L 85 30 Z" fill="url(#farWingGrad)" opacity="0.95" />
-                    <!-- Far Winglet (Orange accent) -->
-                    <path d="M 43 7 L 41 3 L 45 4.5 L 46 7 Z" fill="#fa674b" />
-                    <!-- Far Engine Pod -->
-                    <rect x="58" y="19" width="16" height="5" rx="2.5" fill="url(#engineGrad)" />
-                    <ellipse cx="74" cy="21.5" rx="1.5" ry="2.5" fill="#dff343" opacity="0.85" />
+                  <g filter="url(#jetAeroShadow)">
+                    <!-- Far Horizontal Stabilizer -->
+                    <path d="M 28 48 L 12 36 L 24 35 L 44 47 Z" fill="url(#farWingFaceGrad)" opacity="0.9" />
 
-                    <!-- Far Tail Wing -->
-                    <path d="M 18 32 L 6 21 L 12 20 L 26 32 Z" fill="url(#farWingGrad)" />
+                    <!-- Far Main Swept Wing (Background) -->
+                    <path d="M 104 46 L 68 12 L 80 11 L 132 44 Z" fill="url(#farWingFaceGrad)" opacity="0.95" />
+                    <!-- Far Winglet -->
+                    <path d="M 68 12 Q 65 6 69 4 L 73 8 Q 72 11 80 11 Z" fill="#fa674b" />
+                    <!-- Far Wingtip Strobe (Green starboard) -->
+                    <circle class="plane-strobe green-nav" cx="68" cy="5" r="2.2" />
 
-                    <!-- Fuselage / Aircraft Body -->
-                    <path d="M 10 35 Q 16 30.5 35 30.5 L 96 30.5 Q 122 30.5 133 35 Q 122 39.5 96 39.5 L 35 39.5 Q 16 39.5 10 35 Z" fill="url(#fuselageGrad)" />
-                    <path d="M 28 32 Q 75 31.5 120 34.2" stroke="rgba(255,255,255,0.9)" stroke-width="0.75" stroke-linecap="round" />
+                    <!-- Far Turbofan Engine -->
+                    <g id="farEngineGroup">
+                      <path d="M 94 38 L 102 38 L 98 44 L 90 44 Z" fill="#1b4237" />
+                      <rect x="88" y="27" width="26" height="8.5" rx="4.2" fill="url(#engineCowlGrad)" />
+                      <ellipse cx="114" cy="31.2" rx="2.5" ry="4.2" fill="url(#engineIntakeLip)" />
+                      <ellipse cx="114" cy="31.2" rx="1.2" ry="2.2" fill="#0d2820" />
+                      <ellipse cx="87" cy="31.2" rx="3.5" ry="3.8" fill="url(#engineExhaustThrust)" />
+                    </g>
 
-                    <!-- Vertical Stabilizer / Tail Fin -->
-                    <path d="M 13 35 L 5 11 Q 7.5 9 12 10 L 32 35 Z" fill="url(#fuselageGrad)" />
-                    <path d="M 9.5 16 L 7.5 12 Q 8.5 10 12 10 L 19 18.5 Z" fill="#fa674b" />
-                    <path d="M 14 20.5 L 10.5 16.5 L 19 18.5 L 22 22.5 Z" fill="#dff343" />
+                    <!-- Composite Fuselage Silhouette -->
+                    <path d="M 16 57 Q 26 50 50 49 L 148 44 Q 186 43 205 52 Q 186 61 148 60 L 50 59 Q 26 61 16 57 Z" fill="url(#fuselageBodyGrad)" />
+                    <!-- Belly Shadow Shader -->
+                    <path d="M 16 57 Q 26 50 50 49 L 148 44 Q 186 43 205 52 Q 186 61 148 60 L 50 59 Q 26 61 16 57 Z" fill="url(#fuselageBellyShadow)" />
 
-                    <!-- Cockpit Windshield -->
-                    <path d="M 121 33.2 Q 127 34.2 130 35 Q 126 35.8 120 35.5 Q 120.2 33.5 121 33.2 Z" fill="#0d2922" />
+                    <!-- Longitudinal Sunlight Highlight Streak -->
+                    <path d="M 40 51 Q 120 46 195 50" stroke="rgba(255, 255, 255, 0.95)" stroke-width="1.2" stroke-linecap="round" />
+                    <!-- Radome Nose Cone Seam -->
+                    <path d="M 194 48 Q 192 52 194 56" stroke="rgba(20, 60, 50, 0.3)" stroke-width="0.8" fill="none" />
 
-                    <!-- Passenger Cabin Windows -->
-                    <circle cx="108" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="103" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="98" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="93" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="88" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="83" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="78" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="73" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="68" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="63" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="58" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="53" cy="34.5" r="0.9" fill="#143b31" />
-                    <circle cx="48" cy="34.5" r="0.9" fill="#143b31" />
+                    <!-- Tripwise Livery Cheatline Accent -->
+                    <path d="M 38 56 L 165 53 Q 180 53 192 52" stroke="url(#tripwiseLiveryGrad)" stroke-width="1.8" stroke-linecap="round" fill="none" />
 
-                    <!-- Near Wing (Foreground) -->
-                    <path d="M 72 36 L 40 65 L 53 65 L 94 37 Z" fill="url(#nearWingGrad)" />
-                    <path d="M 40 65 L 36 68 L 41 67.5 L 44 65 Z" fill="#fa674b" />
+                    <!-- Streamlined Cockpit Wraparound Visor -->
+                    <path d="M 186 48.5 Q 196 50.5 198 52 Q 194 53.5 186 53 Q 185 50.5 186 48.5 Z" fill="url(#cockpitVisorGrad)" />
+                    <path d="M 189 49.5 L 195 51.5" stroke="#ffffff" stroke-width="0.75" stroke-linecap="round" opacity="0.9" />
 
-                    <!-- Near Engine Pod -->
-                    <rect x="62" y="44" width="18" height="6.5" rx="3.2" fill="url(#engineGrad)" />
-                    <ellipse cx="80" cy="47.2" rx="1.8" ry="3.2" fill="#dff343" opacity="0.95" />
+                    <!-- Cabin Passenger Windows -->
+                    <g class="cabin-windows" opacity="0.92">
+                      <rect x="174" y="50" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="168" y="50" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="162" y="50" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="156" y="50" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="150" y="50.2" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="144" y="50.4" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="138" y="50.6" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="132" y="50.8" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="126" y="51" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="120" y="51.2" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="114" y="51.4" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="108" y="51.6" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="102" y="51.8" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="96" y="52" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="90" y="52.2" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="84" y="52.4" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="78" y="52.6" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="72" y="52.8" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                      <rect x="66" y="53" width="2.4" height="2.4" rx="1.2" fill="#0f3429" />
+                    </g>
+
+                    <!-- Swept Vertical Stabilizer & Tail Livery -->
+                    <path d="M 22 56 L 8 20 Q 11 17 18 18 L 48 52 Z" fill="url(#fuselageBodyGrad)" />
+                    <!-- Tailfin Coral & Lime Decal Chevrons -->
+                    <path d="M 14 26 L 10 20 Q 11 17 18 18 L 27 28 Z" fill="#fa674b" />
+                    <path d="M 20 33 L 15 27 L 26 28 L 33 34 Z" fill="#dff343" />
+                    <!-- Tail Beacon Light (White Strobe) -->
+                    <circle class="plane-strobe white-beacon" cx="16" cy="18" r="2" />
 
                     <!-- Near Horizontal Stabilizer -->
-                    <path d="M 18 36 L 8 48 L 15 48 L 28 36 Z" fill="url(#nearWingGrad)" />
+                    <path d="M 26 58 L 10 74 L 20 74 L 40 59 Z" fill="url(#nearWingFaceGrad)" />
 
-                    <!-- Navigation Lights -->
-                    <circle class="plane-strobe red-nav" cx="38" cy="66" r="1.8" />
-                    <circle class="plane-strobe green-nav" cx="42.5" cy="6" r="1.8" />
-                    <circle class="plane-strobe white-beacon" cx="12" cy="10" r="1.5" />
+                    <!-- Near Main Swept Wing -->
+                    <path d="M 116 54 L 62 98 L 80 98 L 150 56 Z" fill="url(#nearWingFaceGrad)" />
+                    <!-- Wing Leading Edge Highlight Line -->
+                    <path d="M 148 56 L 64 98" stroke="rgba(255, 255, 255, 0.9)" stroke-width="1.2" stroke-linecap="round" />
+                    <!-- Aerodynamic Winglet (Upturned Rake) -->
+                    <path d="M 62 98 Q 56 103 54 108 L 60 108 Q 63 103 72 98 Z" fill="#fa674b" />
+                    <!-- Flap Track Fairings -->
+                    <rect x="88" y="80" width="10" height="3" rx="1.5" transform="rotate(-36 88 80)" fill="#1c473a" opacity="0.85" />
+                    <rect x="110" y="66" width="10" height="3" rx="1.5" transform="rotate(-36 110 66)" fill="#1c473a" opacity="0.85" />
+                    <!-- Port Wingtip Strobe (Red Strobe) -->
+                    <circle class="plane-strobe red-nav" cx="54" cy="107" r="2.4" />
+
+                    <!-- Near High-Bypass Turbofan Engine -->
+                    <g id="nearEngineGroup">
+                      <path d="M 98 56 L 108 56 L 104 64 L 94 64 Z" fill="#14392e" />
+                      <rect x="92" y="64" width="32" height="11.5" rx="5.5" fill="url(#engineCowlGrad)" />
+                      <ellipse cx="124" cy="69.7" rx="3.2" ry="5.7" fill="url(#engineIntakeLip)" />
+                      <ellipse cx="124" cy="69.7" rx="1.6" ry="3.2" fill="#0d2820" />
+                      <circle cx="124" cy="69.7" r="1" fill="#dff343" />
+                      <ellipse cx="91" cy="69.7" rx="4.5" ry="5" fill="url(#engineExhaustThrust)" />
+                    </g>
                   </g>
                 </svg>
               </div>
