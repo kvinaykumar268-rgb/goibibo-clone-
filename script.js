@@ -31,13 +31,16 @@ let appliedDiscount = 0;
 let appliedCouponCode = null;
 
 function getToken() {
-  try { return localStorage.getItem("goibibo-demo-token"); } catch (e) { return null; }
+  try { return localStorage.getItem("tripwise-demo-token") || localStorage.getItem("goibibo-demo-token"); } catch (e) { return null; }
 }
 function setToken(token) {
-  try { localStorage.setItem("goibibo-demo-token", token); } catch (e) {}
+  try { localStorage.setItem("tripwise-demo-token", token); } catch (e) {}
 }
 function removeToken() {
-  try { localStorage.removeItem("goibibo-demo-token"); } catch (e) {}
+  try {
+    localStorage.removeItem("tripwise-demo-token");
+    localStorage.removeItem("goibibo-demo-token");
+  } catch (e) {}
 }
 function localDateValue() { return new Date().toLocaleDateString("en-CA"); }
 
@@ -312,7 +315,7 @@ async function handleGoogleLogin() {
 function toggleAuthMode() {
   authMode = authMode === "login" ? "register" : "login";
   const registering = authMode === "register";
-  document.querySelector("#auth-kicker").textContent = registering ? "JOIN GOIBIBO" : "WELCOME BACK";
+  document.querySelector("#auth-kicker").textContent = registering ? "JOIN TRIPWISE" : "WELCOME BACK";
   document.querySelector("#auth-title").textContent = registering ? "Create your account" : "Login to your account";
   document.querySelector("#name-field").classList.toggle("hidden", !registering);
   document.querySelector("#auth-submit").textContent = registering ? "Create account" : (authType === "phone" && otpSent ? "Verify OTP & Login" : "Continue →");
@@ -354,7 +357,7 @@ async function handleAuthSubmit(event) {
       document.querySelector("#auth-submit").textContent = "Continue →";
       showToast(res.message || "Logged in with Mobile Number!");
     } catch (err) {
-      const demoUser = { name: `User (+91 ${phoneVal.slice(0, 5)}...)`, email: `${phoneVal}@goibibo.demo` };
+      const demoUser = { name: `User (+91 ${phoneVal.slice(0, 5)}...)`, email: `${phoneVal}@tripwise.demo` };
       setToken("demo-phone-token-" + Date.now());
       updateAuthButton(demoUser);
       closeModal("auth-modal");
@@ -545,7 +548,7 @@ async function handleBookingSubmit(event) {
 
 function showTicketModal(booking) {
   const item = bookingItem(booking);
-  document.querySelector("#ticket-pnr").textContent = booking.pnr || "GBB9841";
+  document.querySelector("#ticket-pnr").textContent = booking.pnr || "TPW9841";
   document.querySelector("#ticket-id").textContent = booking.id;
   document.querySelector("#ticket-passenger").textContent = booking.travellerName;
   document.querySelector("#ticket-date").textContent = booking.departureDate;
@@ -694,7 +697,7 @@ function initHeroTextRotator() {
 // THEME MANAGEMENT (LIGHT / DARK MODE)
 function getStoredTheme() {
   try {
-    return localStorage.getItem("goibibo-theme");
+    return localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
   } catch (e) {
     return null;
   }
@@ -702,7 +705,7 @@ function getStoredTheme() {
 
 function setStoredTheme(theme) {
   try {
-    localStorage.setItem("goibibo-theme", theme);
+    localStorage.setItem("tripwise-theme", theme);
   } catch (e) {}
 }
 

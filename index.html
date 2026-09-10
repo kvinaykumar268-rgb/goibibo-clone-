@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>goibibo — Travel made easy</title>
+    <title>Tripwise — Travel made easy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
@@ -11,7 +11,7 @@
     <script>
       (function () {
         try {
-          const savedTheme = localStorage.getItem("goibibo-theme");
+          const savedTheme = localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
           if (savedTheme) {
             document.documentElement.setAttribute("data-theme", savedTheme);
           } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -24,7 +24,7 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#"><span>go</span>ibibo</a>
+      <a class="brand" href="#"><span>Trip</span>wise</a>
       <nav><a href="#offers">Offers</a><a href="#trips" id="my-trips-link">My Trips</a><a href="#help">Help</a></nav>
       <div class="topbar-actions">
         <button class="theme-toggle" id="theme-toggle-btn" type="button" aria-label="Toggle dark mode" title="Switch between light and dark mode">
@@ -252,14 +252,14 @@
       <section class="app-banner">
         <div class="app-phone">
           <div class="screen">
-            <span class="mini-brand"><b>go</b>ibibo</span>
+            <span class="mini-brand"><b>Trip</b>wise</span>
             <h4>Good morning,<br />Traveller!</h4>
             <div class="mini-card">Your next escape<br /><b>starts today</b></div>
             <div class="mini-nav">⌂　⌕　♡　☻</div>
           </div>
         </div>
         <div>
-          <p class="eyebrow orange">THE GOIBIBO APP</p>
+          <p class="eyebrow orange">THE TRIPWISE APP</p>
           <h2>Everything you need.<br />Right in your pocket.</h2>
           <p>Plan, book and manage your trips on the go.<br />Plus, get app-only prices and early access to sales.</p>
           <div class="store-buttons">
@@ -272,9 +272,9 @@
     </main>
 
     <footer id="help">
-      <a class="brand" href="#"><span>go</span>ibibo</a>
+      <a class="brand" href="#"><span>Trip</span>wise</a>
       <p>Made for the moments that matter.</p>
-      <div>© 2026 Goibibo Demo · Made with care</div>
+      <div>© 2026 Tripwise · Made with care</div>
     </footer>
 
     <!-- AUTH MODAL -->
@@ -485,12 +485,12 @@
         
         <div class="ticket-wrapper" id="ticket-printable-area">
           <div class="ticket-header">
-            <div class="ticket-brand"><span>go</span>ibibo</div>
+            <div class="ticket-brand"><span>Trip</span>wise</div>
             <div class="ticket-status-badge">CONFIRMED E-TICKET</div>
           </div>
 
           <div class="ticket-pnr-bar">
-            <div>PNR: <b id="ticket-pnr">GBB9X82F</b></div>
+            <div>PNR: <b id="ticket-pnr">TPW9X82F</b></div>
             <div>Booking Ref: <b id="ticket-id">BK-9182</b></div>
             <div>Status: <span class="green-text">CONFIRMED</span></div>
           </div>

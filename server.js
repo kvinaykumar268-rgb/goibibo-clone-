@@ -60,7 +60,7 @@ function handleRequest(request, response) {
 if (require.main === module) {
   const server = http.createServer(handleRequest);
   server.listen(PORT, () => {
-    console.log(`Goibibo clone is running at http://localhost:${PORT}`);
+    console.log(`Tripwise is running at http://localhost:${PORT}`);
   });
 }
 

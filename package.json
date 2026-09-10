@@ -1,7 +1,7 @@
 {
-  "name": "goibibo-clone",
+  "name": "tripwise",
   "version": "1.0.0",
-  "description": "A Goibibo-inspired travel booking demo",
+  "description": "Tripwise - Modern travel booking platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -5,7 +5,7 @@ const { readRequestBody, sendJson } = require("../utils/response");
 
 function generatePNR() {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  let result = "GBB";
+  let result = "TPW";
   for (let i = 0; i < 5; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
@@ -254,14 +254,14 @@ async function phoneAuth(request, response) {
   const { phone } = await readRequestBody(request);
   const cleanPhone = phone?.trim() || "9876543210";
   const database = readDatabase();
-  let user = database.users.find((u) => u.phone === cleanPhone || u.email === `${cleanPhone}@goibibo.demo`);
+  let user = database.users.find((u) => u.phone === cleanPhone || u.email === `${cleanPhone}@tripwise.demo` || u.email === `${cleanPhone}@goibibo.demo`);
 
   if (!user) {
     user = {
       id: createId("USR"),
       name: `User (+91 ${cleanPhone.slice(0, 5)}...)`,
       phone: cleanPhone,
-      email: `${cleanPhone}@goibibo.demo`,
+      email: `${cleanPhone}@tripwise.demo`,
       createdAt: new Date().toISOString(),
     };
     database.users.push(user);
