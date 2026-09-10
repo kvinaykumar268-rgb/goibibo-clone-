@@ -790,12 +790,11 @@ function initHeroCarousel() {
   const nextBtn = document.querySelector("#hero-slide-next");
   const couponBtn = document.querySelector("#ad-hero-coupon-btn");
   const ctaBtn = document.querySelector("#ad-hero-cta-btn");
-  const resortCouponBtn = document.querySelector("#resort-coupon-btn");
-  const resortCtaBtn = document.querySelector("#resort-cta-btn");
+  const sunriseCtaBtn = document.querySelector("#sunrise-cta-btn");
 
   if (!heroSection || !track) return;
 
-  const totalSlides = 3;
+  const totalSlides = 4;
   let currentSlide = 0;
   let slideInterval = null;
   let isHovered = false;
@@ -955,6 +954,25 @@ function initHeroCarousel() {
       }
 
       showToast(`Explore 150+ Handcrafted Holiday Packages!`);
+    });
+  }
+
+  // Slide 4: Sunrise Specials CTA
+  if (sunriseCtaBtn) {
+    sunriseCtaBtn.addEventListener("click", () => {
+      const flightsTab = document.querySelector('.tab[data-panel="flights"]');
+      if (flightsTab) {
+        flightsTab.click();
+      }
+
+      const searchWrap = document.querySelector(".search-wrap");
+      if (searchWrap) {
+        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchWrap.classList.add("highlight-pulse");
+        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+      }
+
+      showToast("Sunrise Zero-Cancellation deals loaded! Search your morning flights ☀️");
     });
   }
 
