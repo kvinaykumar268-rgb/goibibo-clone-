@@ -697,7 +697,7 @@ function initHeroTextRotator() {
 // THEME MANAGEMENT (LIGHT / DARK MODE)
 function getStoredTheme() {
   try {
-    return localStorage.getItem("pomaii-theme") || localStorage.getItem("tripwise-theme") || localStorage.getItem("goibibo-theme");
+    return localStorage.getItem("tripwise-theme") || localStorage.getItem("pomaii-theme") || localStorage.getItem("goibibo-theme");
   } catch (e) {
     return null;
   }
@@ -705,8 +705,8 @@ function getStoredTheme() {
 
 function setStoredTheme(theme) {
   try {
-    localStorage.setItem("pomaii-theme", theme);
     localStorage.setItem("tripwise-theme", theme);
+    localStorage.setItem("pomaii-theme", theme);
   } catch (e) {}
 }
 
@@ -783,9 +783,9 @@ initHeroTextRotator();
 initTheme();
 
 // ==========================================================================
-// POMAII INTERACTIVE LUXURY FEATURES
+// TRIPWISE INTERACTIVE LUXURY FEATURES
 // ==========================================================================
-function initPomaiiInteractions() {
+function initTripwiseInteractions() {
   const searchWrap = document.querySelector(".search-wrap");
   const searchToInput = document.querySelector("#search-to");
   const searchFromInput = document.querySelector("#search-from");
@@ -928,7 +928,7 @@ function initPomaiiInteractions() {
   });
 }
 
-initPomaiiInteractions();
+initTripwiseInteractions();
 
 
 
