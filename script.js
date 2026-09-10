@@ -781,4 +781,136 @@ function initTheme() {
 initHeroTextRotator();
 initTheme();
 
+// HERO AUTOSLIDER & SPONSORED AD CAROUSEL
+function initHeroCarousel() {
+  const heroSection = document.querySelector("#hero-carousel");
+  const track = document.querySelector("#hero-slider-track");
+  const dots = document.querySelectorAll(".hero-dot");
+  const prevBtn = document.querySelector("#hero-slide-prev");
+  const nextBtn = document.querySelector("#hero-slide-next");
+  const couponBtn = document.querySelector("#ad-hero-coupon-btn");
+  const ctaBtn = document.querySelector("#ad-hero-cta-btn");
+
+  if (!heroSection || !track) return;
+
+  const totalSlides = 2;
+  let currentSlide = 0;
+  let slideInterval = null;
+  let isHovered = false;
+
+  function goToSlide(index) {
+    currentSlide = (index + totalSlides) % totalSlides;
+    // Slide left: translateX(-0%) for slide 0, translateX(-50%) for slide 1
+    track.style.transform = `translateX(-${currentSlide * 50}%)`;
+
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentSlide);
+    });
+  }
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    slideInterval = setInterval(() => {
+      if (!isHovered) {
+        goToSlide(currentSlide + 1);
+      }
+    }, 6500);
+  }
+
+  function stopAutoSlide() {
+    if (slideInterval) {
+      clearInterval(slideInterval);
+      slideInterval = null;
+    }
+  }
+
+  // Hover pauses autosliding so user can read/click smoothly
+  heroSection.addEventListener("mouseenter", () => { isHovered = true; });
+  heroSection.addEventListener("mouseleave", () => { isHovered = false; });
+
+  // Navigation Arrows
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      goToSlide(currentSlide - 1);
+      startAutoSlide();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      goToSlide(currentSlide + 1);
+      startAutoSlide();
+    });
+  }
+
+  // Navigation Dots
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      const idx = parseInt(dot.getAttribute("data-slide-index"), 10) || 0;
+      goToSlide(idx);
+      startAutoSlide();
+    });
+  });
+
+  // Touch Swipe Support on Mobile/Tablets
+  let touchStartX = 0;
+  heroSection.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  heroSection.addEventListener("touchend", (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        goToSlide(currentSlide + 1); // Swiped left -> next slide
+      } else {
+        goToSlide(currentSlide - 1); // Swiped right -> prev slide
+      }
+      startAutoSlide();
+    }
+  }, { passive: true });
+
+  // Ad Slide Actions: 1-Click Promo Code Copy
+  if (couponBtn) {
+    couponBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const code = "EMIRATES35";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).catch(() => {});
+      }
+      showToast(`Promo code ${code} copied! Flat ₹3,500 off on Dubai flights.`);
+    });
+  }
+
+  // Ad Slide Actions: Explore Dubai Deals CTA
+  if (ctaBtn) {
+    ctaBtn.addEventListener("click", () => {
+      const fromInput = document.querySelector("#flight-from");
+      const toInput = document.querySelector("#flight-to");
+
+      if (fromInput && !fromInput.value) {
+        fromInput.value = "New Delhi";
+      }
+      if (toInput) {
+        toInput.value = "Dubai";
+      }
+
+      const searchWrap = document.querySelector(".search-wrap");
+      if (searchWrap) {
+        searchWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchWrap.classList.add("highlight-pulse");
+        setTimeout(() => searchWrap.classList.remove("highlight-pulse"), 1300);
+      }
+
+      showToast(`Emirates Dubai offers loaded! Click "Search Flights".`);
+    });
+  }
+
+  // Kick off auto slider
+  startAutoSlide();
+}
+
+initHeroCarousel();
+
 
